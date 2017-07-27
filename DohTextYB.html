@@ -1,0 +1,33 @@
+<!doctype html>
+<html><head>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("doh.runner");
+        dojo.addOnLoad(function(){
+            doh.register("fooTest",[
+                function foo(){
+                    var dohDfd = new doh.Deferred();
+                    var expectedResult = "baz";
+                    var dojoDft = asynchronousBarFunction();
+                    dojoDft.addBoth(function(response,io){
+                        if(response == expectedResult){
+                            dohDfd.callback(true);
+                        }else{
+                            dohDfd.errback(new Error(/* ....  */));
+                        }
+                    });
+                }
+            ]);
+        });
+    </script>
+    <title>DOHYB</title>
+</head>
+
+<body>
+</body>
+</html>

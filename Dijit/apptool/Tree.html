@@ -1,0 +1,25 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dojo.data.ItemFileReadStore");
+        dojo.require("dijit.tree.TreeStoreModel");
+        dojo.require("dijit.Tree");
+    </script>
+    <title>Tree</title>
+</head>
+
+<body class="tundra" >
+<div dojoType="dojo.data.ItemFileReadStore" url="/dojoStudy/resource/Languages.json" jsId="coffeeStore"></div>
+<div dojoType="dijit.tree.TreeStoreModel" jsId="model" store="coffeeStore" query="{name:'*'}"></div>
+<div dojoType="dijit.Tree" model="model"></div>
+</body>
+</html>

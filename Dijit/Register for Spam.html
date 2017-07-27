@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <title>Register for Spam</title>
+        <script type="text/javascript">
+            function help(){
+                var msg = "Basically, we want to sell your info to a 3rd party.";
+                alert(msg);
+                return false;
+            }
+            function validate(){
+                var f = document.getElementById("registration_form");
+                if(f.first.value==""|| f.last.value==""|| f.email.value==""){
+                    alert("All fields are required.");
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </head>
+    <body>
+        <p>Just Use form below to sign-up for our great offers:</p>
+        <form id="registration_form"
+              method="post"
+              onsubmit="javascript:return validate()"
+              action="">
+            First Name: <input type="text" name="first"></dr>
+            Last Name: <input type="text" name="last"></dr>
+            Your Email: <input type="text" name="email"></dr>
+            <button type="submit">Sign Up!</button>
+            <button type="reset">Reset</button>
+            <button type="button" onclick="javascript:help()">Help</button>
+        </form>
+    </body>
+</html>

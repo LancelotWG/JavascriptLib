@@ -1,0 +1,76 @@
+<!doctype html>
+<html><head>
+<link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+<link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+<meta charset="utf-8">
+<style type="text/css">
+	h3{
+		margin:10px;
+	}
+	label,input{
+	   display:block;
+	   float:left;
+	   margin-bottom:5px;
+	}
+	label{
+		text-align:right;
+		width:70px;
+		padding-right:20px;
+	}
+	br{
+		clear:left;
+	}
+	.grouping{
+		width:300px;
+		border:solid 1px rgb(230,230,230);
+		padding:5px;
+		margin:10px;
+	}
+</style>
+<script 
+	type="text/javascript" 
+	src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js" 		    djConfig="isDebug:true,parseOnLoad:true">
+</script>
+<script type="text/javascript">
+	dojo.require("dojo.parser")
+	dojo.require("dijit.form.TextBox")
+	dojo.require("dijit.form.ValidationTextBox")
+	dojo.require("dijit.form.Button")
+</script>
+<title>dijit测试</title>
+</head>
+
+<body class="tundra">
+    <h3>Sign-up for our great offers:</h3>
+    <form id="registration_form">
+        <div class="grouping">
+            <label>First Name:</label>
+            <input type="text"
+            maxlength="25"
+            name="first"
+            dojoType="dijit.form.TextBox"
+            trim="true"
+            propercase="true"><br/>
+            <label>Last Name:</label>
+            <input type="text"
+            maxlength="25"
+            name="last"
+            dojoType="dijit.form.TextBox"
+            trim="true"
+            propercase="true"><br/>
+            <label>Your Email:</label>
+            <input type="text"
+            maxlength="25"
+            name="email"
+            dojoType="dijit.form.ValidationTextBox"
+            trim="true"
+            lowercase="true"
+            regExp="[a-z0-9._%+-]+@[a-z]+\.[a-z]{2,4}"
+            required="true"
+            inValidMessage="请输入正确的邮箱地址哦！"><br/>
+            <button dojoType="dijit.form.Button"
+            onClick="alert('Boo!')">Sign Up</button>
+        </div>
+    </form>
+</body>
+</html>

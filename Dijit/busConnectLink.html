@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
+<html xmlns="http://www.w3.org/1999/xhtml">  
+  <head>  
+    <style type="text/css">  
+        .wraper {  
+            position: relative;  
+            border: 1px solid orange;  
+        }  
+    </style>  
+    <script type="text/javascript">
+		var k1 = 1/5;
+		var k2 = 1/7;
+		var p1 = {x:30,y:10};
+		var p2 = {x:130,y:10};
+		var p3 = {x:k1*p1.x + (1-k1)*p2.x,y:k2*p2.y + (1-k2)*p1.y};
+		var p4 = {x:k1*p2.x + (1-k1)*p1.x,y:k2*p1.y + (1-k2)*p2.y};
+        function draw(){  
+            var can = document.getElementById('test');  
+            if(can.getContext){  
+                var cxt = can.getContext('2d');  
+  
+                //绘制起始点、控制点、终点  
+                /*cxt.beginPath();
+				cxt.moveTo(p1.x,p1.y);  
+                cxt.lineTo(p3.x,p3.y);  
+                cxt.lineTo(p4.x,p4.y);  
+                cxt.lineTo(p2.x,p2.y);  
+                cxt.stroke();
+                cxt.moveTo(30,180);  
+                cxt.lineTo(70,30);  
+                cxt.lineTo(130,170);  
+                cxt.lineTo(180,50);  
+                cxt.stroke();*/
+  
+                cxt.strokeStyle = "rgba(200,0,0,1)";  
+      
+								//绘制3次贝塞尔曲线 
+				for(var j = 0;j < 12;j++){
+				
+					for(var i = 0;i < 12;i++){
+							cxt.beginPath();
+							cxt.moveTo(p1.x,p1.y);  
+							cxt.bezierCurveTo(p3.x,p3.y,p4.x,p4.y,p2.x,p2.y);
+									/*cxt.moveTo(30,180);  
+									cxt.bezierCurveTo(70,30,130,170,180,50);*/  
+							cxt.stroke();
+							p2.y += 15;
+							p3 = {x:k1*p1.x + (1-k1)*p2.x,y:k2*p2.y + (1-k2)*p1.y};
+							p4 = {x:k1*p2.x + (1-k1)*p1.x,y:k2*p1.y + (1-k2)*p2.y};
+					}
+					p2.y = 10;
+					p1.y += 15;
+					p3 = {x:k1*p1.x + (1-k1)*p2.x,y:k2*p2.y + (1-k2)*p1.y};
+					p4 = {x:k1*p2.x + (1-k1)*p1.x,y:k2*p1.y + (1-k2)*p2.y};
+				}				      
+            }  
+  
+        }  
+    </script>  
+  </head>   
+    
+  <body onload="draw();">  
+      
+    <canvas id="test" width="200px" height="200px" class="wraper"></canvas>  
+  
+  </body>  
+</html>  

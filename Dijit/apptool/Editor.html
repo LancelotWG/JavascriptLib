@@ -1,0 +1,49 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        //dojo.require("dojo.data.ItemFileReadStore");
+       // dojo.require("dijit.tree.ForestStoreModel");
+        //dojo.require("dijit._tree.dndSource");
+        dojo.require("dijit.Editor");
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit._editor.plugins.FontChoice");
+        dojo.addOnLoad(function(){
+        });
+    </script>
+    <title>Tree 3</title>
+</head>
+
+<body class="tundra" >
+<idv style="margin: 5px;background: #eee;height: 400px;width: 525px;">
+    <div dojoType="dijit.Editor" id="editor" height="375px">
+        jdfhsdigifdghdfgjgkldf?dsger<br>
+        fjghdfgfdjjhfg fdgh ifdhgop
+    </div>
+</idv>
+<button dojoType="dijit.form.Button">Save
+    <script type="dojo/method" event="onClick" args="evt">
+        console.log(dijit.byId("editor").getValue());
+    </script>
+</button>
+<button dojoType="dijit.form.Button">Clear
+    <script type="dojo/method" event="onClick" args="evt">
+        dijit.byId("editor").replaceValue();
+    </script>
+</button><br>
+<idv style="margin: 5px;background: #eee;height: 400px;width: 525px;">
+    <div dojoType="dijit.Editor"  height="375px" extraPlugins="['fontName']">
+        jdfhsdigifdghdfgjgkldf?dsger<br>
+        fjghdfgfdjjhfg fdgh ifdhgop
+    </div>
+</idv>
+</body>
+</html>

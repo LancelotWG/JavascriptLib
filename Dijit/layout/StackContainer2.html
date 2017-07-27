@@ -1,0 +1,81 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.layout.ContentPane");
+        dojo.require("dijit.Declaration");
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit.layout.StackContainer");
+        dojo.addOnLoad(function(){
+            var b = dijit.byId("stack");
+            var bb = dijit.byId("back");
+            var f = dijit.byId("forward");
+            dojo.connect(bb,"onClick",function(evt){
+                b.back();
+            });
+            dojo.connect(f,"onClick",function(evt){
+                b.forward();
+            });
+        })
+    </script>
+    <title>StackContainer</title>
+</head>
+
+<body class="tundra" >
+<div id="stack" dojoType="dijit.layout.StackContainer"
+     style="height: 1000px;width: 1000px;border: solid 3px;">
+    <div dojoType="dijit.layout.ContentPane"
+         style="background-color: blue;height: 100px;" splitter="true" minSize=10 maxSize=100>
+        Noting special going on here!top
+    </div>
+    <div dojoType="dijit.layout.ContentPane" href="/dojoStudy/Dijit/Hello World, Take 5.html"
+         style="background-color: red;height: 100px;" splitter="true" minSize=10 maxSize=100>
+        Noting special going on here!
+    </div>
+    <div dojoType="dijit.layout.ContentPane" href="/dojoStudy/Dijit/Slider.html" parseOnLoad="false"
+         minSize=10 maxSize=100>
+        Noting special going on here!
+        <script type="dojo/method" event="onLoad">
+            dojo.query("[dojoType]",this.domNode).forEach(function(x) {
+                var _resource = dojo.attr(x, "dojoType");
+                dojo.require(_resource);
+                var _interval = setInterval(function () {
+                    if (eval(_resource)) {
+                        clearInterval(_interval);
+                        dojo.parser.parse(x.parentNode);
+                    }
+                },100);
+            });
+        </script>
+    </div>
+    <div dojoType="dijit.layout.ContentPane" href="/dojoStudy/Dijit/Hello World, Take 5.html"
+         style="background-color: yellow;width: 100px;" splitter="true" minSize=10 maxSize=100>
+        Noting special going on here!left
+    </div>
+    <div dojoType="dijit.layout.ContentPane" href="/dojoStudy/Dijit/Hello World, Take 5.html"
+         style="background-color: green;width: 100px;" splitter="true" minSize=10 maxSize=100>
+        Noting special going on here!right
+    </div>
+</div>
+<button dojoType="dijit.form.Button" id="back">&lt;
+<!--<script type="" event="onClick" args="evt">
+    var b = dijit.byId("stack");
+    b.back();
+</script>-->
+</button>
+<button dojoType="dijit.form.Button" id="forward">&gt;
+    <!--<script type="" event="onClick" args="evt">
+        var f = dijit.byId("stack");
+        f.forward();
+    </script>-->
+</button>
+</body>
+</html>

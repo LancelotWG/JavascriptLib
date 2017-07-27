@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("doh.runner");
+        dojo.addOnLoad(function(){
+            doh.register("fooTest",[
+                    function foo(){
+                        var bar = [];
+                        bar.push(1);
+                        bar.push(2);
+                        bar.push(3);
+                        doh.is(bar[1],2);
+                        doh.is(bar[1],2);
+                    }
+            ]);
+            doh.run();
+        });
+    </script>
+    <title>DOH</title>
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.InlineEditBox");
+        dojo.require("dijit.form.TextBox");
+        dojo.require("dijit.form.Textarea");
+    </script>
+    <title>InlineEditBox</title>
+</head>
+
+<body class="tundra" >
+<div id="stack" >
+    Dear <span dojoType="dijit.InlineEditBox" autoSave="false" editor="dijit.form.TextBox" width="80px">Lancelot</span>:
+    <div>Weodjg jdj  kltjre rti  iroopy orty toyir yo r</div>
+    Dear <span dojoType="dijit.InlineEditBox" autoSave="true" editor="dijit.form.TextBox" width="80px">Guoelf</span>
+    <br>
+    <br>
+    Dear <span dojoType="dijit.InlineEditBox" autoSave="true" editor="dijit.form.Textarea" renderAsHtml="true">Guoelf</span>
+</div>
+</body>
+</html>

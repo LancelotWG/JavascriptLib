@@ -1,0 +1,336 @@
+<html>
+	<head>
+		<title>Register for Spam</title>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+		<script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+    <script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo/yahoo-min.js"></script>
+    <script type="text/javascript" src="http://localhost/dojoStudy/js/rico/src/prototype.js"></script>
+    <script type="text/javascript" src="http://localhost/dojoStudy/js/rico/src/rico.js"></script>
+    <script
+    	type="text/javascript"
+    	src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+    	djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+		<script>
+			/*var name = "RM";*/
+			var data0 = [
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"modelToBus",
+					modelName:"ANA",
+					modelType:"ANA"
+				},
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"modelToBus",
+					modelName:"RM",
+					modelType:"RM"
+				},
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"busToModel",
+					modelName:"FINT",
+					modelType:"FINT"
+				},
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"busToModel",
+					modelName:"FRCV",
+					modelType:"FRCV"
+				},
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"modelToBus",
+					modelName:"FRCV",
+					modelType:"FRCV"
+				},
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"modelToBus",
+					modelName:"ANA_RCF",
+					modelType:"ANA_RCF"
+				},
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"busToModel",
+					modelName:"ANA_INIT",
+					modelType:"ANA_INIT"
+				},
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"modelToBus",
+					modelName:"ANA_INIT",
+					modelType:"ANA_INIT"
+				},
+				{
+					dataID:"WZ_SigFailFlag",
+					direction:"busToModel",
+					modelName:"ANA_VOTE",
+					modelType:"ANA_VOTE"
+				},
+			];
+			/*var fromData = "WZ_SigFailFlag";
+			var toData = "WZ_SigFailFlag";*/
+			var busName = "WZ_SigFailFlag_BUS";
+			var mainName = "ANA_VOTE"
+			var myData = {
+					fromData:null,
+					toData:null,
+					name:"Process",
+					type:"MAIN",
+					children:[
+						{
+							fromData:null,
+							toData:"WZ_SigFailFlag",
+							name:"RM",
+							type:"RM",
+							children:[
+								{
+									fromData:null,
+									toData:"WZ_SigFailFlag",
+									name:"ANA",
+									type:"ANA",
+									children:[
+										{
+											fromData:null,
+											toData:"WZ_SigFailFlag",
+											name:"ANA_RCF",
+											type:"ANA_RCF",
+											children:[
+												
+											]
+										},
+										{
+											fromData:"WZ_SigFailFlag",
+											toData:"WZ_SigFailFlag",
+											name:"ANA_INIT",
+											type:"ANA_INIT",
+											children:[
+												
+											]
+										},
+										{
+											fromData:"WZ_SigFailFlag",
+											toData:null,
+											name:"ANA_VOTE",
+											type:"ANA_VOTE",
+											children:[
+												
+											]
+										}
+									]
+								},
+								{
+									fromData:"WZ_SigFailFlag",
+									toData:null,
+									name:"FINT",
+									type:"FINT",
+									children:[
+										
+									]
+								},
+								{
+									fromData:"WZ_SigFailFlag",
+									toData:"WZ_SigFailFlag",
+									name:"FRCV",
+									type:"FRCV",
+									children:[
+										
+									]
+								}
+							]
+						}
+					]
+			};
+			window.onload=function(){
+				var aposition = {x:0,y:0};
+				var size = calculateCanvasSize(myData.children);
+				var canvas=document.getElementById("busLinkCanvas");
+				var context=canvas.getContext("2d");
+				canvas.width = size[0];
+        canvas.height = size[1];
+        var busLink = document.getElementById("busLink");
+				Element.setStyle(busLink,{"width":size[0] + "px","height":size[1] + "px"});
+				cell(context,aposition,myData.type,myData.name,myData.fromData,myData.toData,myData.children);
+			}
+			function calculateCanvasSize(data){
+				var height = 60;
+				var width = 100;
+				var interval = 25;
+				var bigHeight = 60;
+				var lastWidth = 0;
+				var intervalWidth = 0;
+				for(var i = 0;i<data.length;i++){
+					var size = this.calculateCanvasSize(data[i].children);
+					lastWidth = lastWidth + size[0];
+					if(i == 0){
+						width = width + 45;
+					}
+					if(size[1] >= bigHeight){
+						bigHeight = size[1];
+						interval = 30 + bigHeight + 50;
+					}
+					width = width + size[0] + 30;
+					if(i == data.length - 1){
+						width = width + 15 -100;
+					}
+					
+				}
+				height = height + interval - 25;
+				return [width,height];
+			}
+			function cell (context,position,type,name,fromData,toData,children,isMain) {
+				var height = 60;
+				var width = 100;
+				var interval = 25;
+				context.save();
+				var img=new Image();
+				img.onload=function(){
+					context.drawImage(img,position.x + 2,position.y + 2);	
+				}
+				img.src= name + ".png";
+				context.font="12px Arial";
+				context.fillText(name,position.x + 20,position.y + 15,80);
+				context.font="12px Arial";
+				var bigHeight = 60;
+				var lastWidth = 0;
+				var intervalWidth = 0;
+				var tempArrows = [];
+				var tempArrow = [];
+				for(var i = 0;i<children.length;i++){
+					var subPosition = {x:position.x + 45 + i*30 + lastWidth,y: position.y + 40};
+					var size = this.cell(context,subPosition,children[i].type,children[i].name,children[i].fromData,
+					children[i].toData,children[i].children,children[i].name == mainName);
+					lastWidth = lastWidth + size[0];
+					if(i == 0){
+						width = width + 45;
+					}
+					if(size[1] >= bigHeight){
+						bigHeight = size[1];
+						interval = 30 + bigHeight + 50;
+					}
+					tempArrow = tempArrow.concat(size[2]);
+					width = width + size[0] + 30;
+					if(i == children.length - 1){
+						width = width + 15 -100;
+						var busPosition = {x:position.x,y:position.y + 40 + bigHeight + 30};
+						drawBus(context,busPosition,width);
+						
+						for (var j = 0; j < tempArrow.length; j++) {
+							switch (tempArrow[j].type) {
+								case 0:
+									drawArrows(context,0,{x:tempArrow[j].point.x - 20,y:busPosition.y - 6},tempArrow[j].point);
+									break;
+								case 1:
+									drawArrows(context,1,tempArrow[j].point,{x:tempArrow[j].point.x + 5,y:busPosition.y - 6});
+									break;
+							}
+						}
+					}
+					
+				}
+				if(fromData){
+					context.fillText(fromData,position.x,position.y + interval + 20,95);
+					tempArrows.push({type:0,point:{x:position.x,y:position.y + interval + 15}});
+				}
+				if(toData){
+					context.textAlign="right";
+					context.fillText(toData,position.x + width,position.y + interval + 20 + 12,95);
+					tempArrows.push({type:1,point:{x:position.x + width,y:position.y + interval + 20 + 10}});
+				}
+				height = height + interval - 25;
+				//ctx.fillStyle = "rgba(255,255,255,0)"
+				if(isMain){
+					context.strokeStyle = "rgba(255,0,0,1)";
+					context.lineWidth = 1;
+				}else{
+					context.strokeStyle = "rgba(0,0,0,1)";
+					context.lineWidth = 1;
+				}
+				context.strokeRect(position.x,position.y,width,height);
+				context.restore();
+				return [width,height,tempArrows];
+			}
+			function drawArrows(context,type/*0:busToModel,1:modelToBus*/,from,to){
+				context.save();
+				var size = [15,3];
+				var cosRad;
+        var sinRad;
+				switch (type) {
+					case 0:
+						context.fillStyle = "rgba(0,0,255,1)";
+						context.strokeStyle = "rgba(0,0,255,1)";
+        		context.lineWidth = 1;
+						context.beginPath();
+						context.moveTo(from.x,from.y);
+						context.lineTo(from.x,to.y);
+						context.lineTo(to.x,to.y);
+						context.stroke();
+						cosRad = -1;
+        		sinRad = 0;
+						break;
+					case 1:
+						context.fillStyle = "rgba(0,255,0,1)";
+						context.strokeStyle = "rgba(0,255,0,1)";
+        		context.lineWidth = 1;
+						context.beginPath();
+						context.moveTo(from.x,from.y);
+						context.lineTo(to.x,from.y);
+						context.lineTo(to.x,to.y);
+						context.stroke();
+						cosRad = 0;
+        		sinRad = 1;
+						break;	
+				}       
+        var p1 = to;
+        var center = {x:p1.x + size[0]*cosRad,y:p1.y - size[0]*sinRad};
+        var p2 = {x:center.x + size[1]*sinRad,y:center.y + size[1]*cosRad};
+        var p3 = {x:center.x - size[1]*sinRad,y:center.y - size[1]*cosRad};
+        context.beginPath();
+        context.moveTo(p1.x,p1.y);
+        context.lineTo(p2.x,p2.y);
+        context.lineTo(p3.x,p3.y);
+        context.lineTo(p1.x,p1.y);
+        context.closePath();
+        context.fill();
+        context.stroke();
+        context.restore();
+			}
+			function drawBus (context,position,length) {
+        context.save();
+        context.beginPath();
+        context.strokeStyle = "rgba(51,153,255,1)";
+        context.fillStyle = "rgba(51,153,255,1)";
+        context.lineWidth = 1;
+        context.moveTo(position.x, position.y);
+        context.lineTo(position.x + 20,position.y - 12);
+        context.lineTo(position.x + 20,position.y - 6);
+        context.lineTo(position.x + length - 20,position.y - 6);
+        context.lineTo(position.x + length - 20,position.y - 12);
+        context.lineTo(position.x + length,position.y);
+        context.lineTo(position.x + length - 20,position.y + 12);
+        context.lineTo(position.x + length - 20,position.y + 6);
+        context.lineTo(position.x + 20,position.y + 6);
+        context.lineTo(position.x + 20,position.y + 12);
+        context.lineTo(position.x,position.y);
+        context.closePath();
+        context.fill();
+        context.stroke();
+        context.restore();
+        //×ÜÏßÎÄ×Ö
+        context.save();
+        context.fillStyle = this.textColor;
+        context.font="12px Arial";
+        context.textAlign="center";
+        context.fillText(busName,position.x + length/2,position.y + 4);
+        context.restore();
+			}
+		</script>
+	</head>
+	<body>
+		<div id="busLink">
+			<canvas id="busLinkCanvas" ></canvas>
+		</div>
+	</body>
+</html>

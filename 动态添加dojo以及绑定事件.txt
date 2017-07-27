@@ -1,0 +1,5 @@
+djConfig={afterOnLoad:true,require:['dojo.behavior']};
+var e = document.createElement("script");
+e.type="text/javascript";
+e.src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js";
+document.getElementsByTagName("head")[0].appendChild(e);//动态绑定事件

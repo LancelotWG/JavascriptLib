@@ -1,0 +1,43 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.ProgressBar");
+        dojo.addOnLoad(function(){
+           /* dijit.byId("tree").checkItemAcceptance = function(target,source){
+                var item = dijit.getEnclosingWidget(target).item;
+                return (item.id!="root"&&item.type=="category");
+            }*/
+            var progressInterval=setInterval(function(){
+                dojo.xhrGet({
+                    url:"http://localhost/dojoStudy/Dijit/apptool/ProgressBar2.php",
+                    load:function(response,ioArgs){
+                        console.log("load",response);
+                        if(response<=100){
+                            dijit.byId("pb").update({progress:response});
+                        }
+                        else{
+                                clearInterval(progressInterval);
+                        }
+
+                    }
+                });
+            },1000);
+        });
+    </script>
+    <title>ProgressBar</title>
+</head>
+
+<body class="tundra" style="padding: 100px;">
+<div>Loading....</div>
+<div id="pb" dojoType="dijit.ProgressBar" style="width: 300px;" progress="0"></div>
+</body>
+</html>

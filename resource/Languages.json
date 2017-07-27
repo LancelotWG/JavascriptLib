@@ -1,0 +1,27 @@
+{
+  "identifier":"name",
+  "label":"name",
+  "items":[
+    {
+      "name":"Programming",
+      "children":[
+        {"name":"Java",
+          "children":[/*一定要是children*/
+            {"name":"JavaSE"},
+            {"name":"JavaME"},
+            {"name":"JavaEE"}
+          ]
+        },
+        {"name":"C/C++",
+          "children":[
+            {"name":"C"},
+            {"name":"C++"}
+          ]
+        },
+        {"name":"JavaScript"},
+        {"name":"Python"},
+        {"name":"C#"}
+      ]
+    }
+  ]
+}

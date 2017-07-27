@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text</title>
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+    <script type="text/javascript">
+        dojo.require("dijit.Declaration");
+        dojo.require("dojo.parser");
+        dojo.require("dojo.dnd.Moveable");
+        dojo.require("dojo.dnd.move");
+        dojo.addOnLoad(function() {
+            var m = new dojo.dnd.Moveable("move",{handle:"dragHandle"});
+            dojo.connect(m,"onMoving",function(mover,shift){
+                console.log("Moving...");
+                console.log(shift);
+            });
+            var m0 = document.getElementById("move1");
+            dojo.connect(m0,"onMoving",function(mover,shift){
+                console.log("Moving...0000");
+                console.log(shift);
+            });
+        });
+    </script>
+</head>
+<body id="main" style="height: 1000px;">
+<script type="text/javascript">
+   /* document.getElementById("main").onmousemove=function(evt){
+        console.log(evt);
+    }*/
+</script>
+<p id="move">Moving</p>
+
+<div id="move1" dojoType="dojo.dnd.Moveable">
+    <p>Moving2222222222</p>
+</div>
+</body>
+</html>

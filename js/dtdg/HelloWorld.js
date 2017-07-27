@@ -1,0 +1,10 @@
+dojo.provide("dtdg.HelloWorld");
+dojo.require("dijit._widget");
+dojo.require("dijit._Templated");
+dojo.declare(
+    "dtdg.HelloWorld",
+    [dijit._Widget,dijit._Templated],
+    {
+        templatePath:dojo.moduleUrl("dtdg","templates/HelloWorld.html")
+    }
+);

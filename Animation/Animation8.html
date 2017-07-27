@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Animation Station</title>
+        <style type="text/css">
+            @import "http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css";
+            .box{
+                width: 200px;
+                height: 200px;
+                margin: 5px;
+                text-align: center;
+				position: absolute;
+                float: left;
+            }
+        </style>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.fx");
+            dojo.addOnLoad(function(){
+                var box = dojo.byId("box");
+                dojo.connect(box,"onclick",function(evt){
+                    dojo.fx.wipeOut(
+                            {node:box}
+                    ).play();
+                });
+            })
+        </script>
+    </head>
+
+    <body>
+        <div class="box">Now you don't</div>
+        <div id="box" class="box" style="background:blue">Now you see me...</div>
+    </body>
+</html>

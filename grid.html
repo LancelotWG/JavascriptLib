@@ -1,0 +1,79 @@
+<!doctype html>
+<html><head>
+    <meta charset="utf-8">
+	<link rel="stylesheet"
+            href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css"
+            type="text/css" />
+	<link  rel="stylesheet" 
+            href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"
+            type="text/css" />
+	<link  rel="stylesheet" 
+            href="http://localhost/dojoStudy/js/dojo/dojox/grid/resources/tundraGrid.css"
+            type="text/css" />
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojox.grid.DataGrid");
+		dojo.require("dojo.store.Memory");
+		dojo.require("dojox.grid.cells.dijit");
+		dojo.require("dijit.form.FilteringSelect");
+		dojo.require("dojo.data.ItemFileWriteStore");
+        dojo.addOnLoad(function(){
+			var timeConfigureStore_hb = {identifier:'id',items: []};
+        var timeConfigureStore = new dojo.data.ItemFileWriteStore({data: timeConfigureStore_hb});
+        var formatData = function(value){
+            var typeData = [{id:0,name:"name1"},{id:1,name:"name2"},{id:2,name:"name3"}];
+            for (var i = 0;i < typeData.length;i++){
+                if(typeData[i].id == value)
+                    return typeData[i].id;
+            }
+        };
+        var getDataValue = function(){
+            return this.widget.get('value');
+        };
+        var myStore = new dojo.store.Memory(
+            {
+                data:[
+                    {id:0},
+                    {id:1},
+                    {id:2}
+                ]
+
+            });
+        var timeConfigureStore_layout = [
+            {name: "模块名称", field: "name", width: "35%"},
+            {name: "时间片(单位：ms)", width: "65%", field: "configureTime",formatter:formatData,editable:true,
+                type:dojox.grid.cells._Widget,
+                widgetClass:dijit.form.FilteringSelect,
+                widgetProps:{
+                    store:myStore,
+                    searchAttr:'id'
+                }
+            }
+        ];
+        var grid = new dojox.grid.DataGrid({
+            id:'timeGrid',
+            store:timeConfigureStore ,
+            structure: timeConfigureStore_layout
+        });
+		var doStartEdit = function(inCell, inRowIndex){
+            console.log("Row:"+inRowIndex);
+        };
+		dojo.connect(grid, "doStartEdit", doStartEdit);
+        grid.placeAt("timeconfigure_grid");
+        grid.startup();
+		timeConfigureStore.newItem({id:0,name:"text1",configureTime:"0"});
+		timeConfigureStore.newItem({id:1,name:"text2",configureTime:"1"});
+		timeConfigureStore.newItem({id:2,name:"text3",configureTime:"2"});
+        });
+    </script>
+    <title>GRID</title>
+</head>
+
+<body class="tundra">
+<div id="timeconfigure_grid" style="width: 100%;height:200px" ></div>
+</body>
+</html>

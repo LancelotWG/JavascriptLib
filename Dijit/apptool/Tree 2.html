@@ -1,0 +1,26 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dojo.data.ItemFileReadStore");
+        dojo.require("dijit.tree.ForestStoreModel");
+        dojo.require("dijit.Tree");
+    </script>
+    <title>Tree 2</title>
+</head>
+
+<body class="tundra" >
+<div dojoType="dojo.data.ItemFileReadStore" url="/dojoStudy/resource/Languageses.json" jsId="coffeeStore"></div>
+<div dojoType="dijit.tree.ForestStoreModel" jsId="model" store="coffeeStore" query="{type:'category'}"></div>
+<!--JSON中的主键即identifier不可出现重名！！！！！-->
+<div dojoType="dijit.Tree" model="model" showRoot="false"></div>
+</body>
+</html>

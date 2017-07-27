@@ -1,0 +1,58 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <style type="text/css">
+        .spamIcon{
+            background-image: url("/dojoStudy/resource/img/ball.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit.form.ValidationTextBox");
+        dojo.require("dijit.form.Form");
+        dojo.require("dijit.form.Textarea");
+        dojo.addOnLoad(function(){
+            /* dijit.byId("tree").checkItemAcceptance = function(target,source){
+             var item = dijit.getEnclosingWidget(target).item;
+             return (item.id!="root"&&item.type=="category");
+             }*/
+            /*var pb = new dijit.ProgressBar;
+             var d = new dijit.Dialog;
+             d.setContent(pb.domNode);
+             d.show();*/
+        });
+    </script>
+    <title>Release</title>
+</head>
+
+<body class="tundra" style="padding: 100px;">
+<form dojoType="dijit.form.Form">
+    First Name: <input dojoType="dijit.form.ValidationTextBox"
+                       propercase=true trim=true required=true
+                       invalidMessage="Required." name="first"></dr>
+    Last Name: <input dojoType="dijit.form.ValidationTextBox"
+                      propercase=true trim=true required=true
+                      invalidMessage="Required." name="last"></dr>
+    Your Email: <input dojoType="dijit.form.ValidationTextBox"
+                       promptMessage="Basically, we want to sell info to a 3rd party."
+                       regExp="[a-z0-9._%+-]+@[a-z0-9-]+\.[a-z]{2,4}" required=true
+                       name="email"></dr>
+    <textarea dojoType="dijit.form.Textarea" style="width: 300px">
+                One fish, tow fish...
+            </textarea><br>
+    <button dojoType="dijit.form.Button" type="reset" iconClass="spamIcon">Reset</button><br>
+</form>
+</body>
+</html>

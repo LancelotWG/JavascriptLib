@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" />
+<script type="text/javascript" src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js" djConfig="isDebug:true"></script>
+<title>dojo回退功能</title>
+<script type="text/javascript">
+	dojo.addOnLoad(function() {
+		initialState = {
+			back:function(){console.log("Back to initial state");}
+		};
+		state1 = {
+			back:function(){console.log("Back to  state 1");},
+			forward:function(){console.log("Forward to  state 1");},
+            changeUrl:true
+		};
+        state2 = {
+			back:function(){console.log("Back to  state 2");},
+			forward:function(){console.log("Forward to state 2");},
+            changeUrl:true
+		};
+        
+        dojo.back.setInitialState(initialState);
+        dojo.back.addToHistory(state1);
+        //dojo.back.addToHistory(state2);
+	});
+    </script>
+</head>
+
+<body>
+	<script type="text/javascript">//dojo.back.init();
+    dojo.require("dojo.back");</script>
+	Press the back button and have a look at the console.
+</body>
+</html>

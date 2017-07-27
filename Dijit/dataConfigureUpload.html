@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Register for Spam</title>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+			dojo.require("dojo.dom");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.MultiSelect");
+			dojo.require("dijit.form.RadioButton");
+			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dijit.layout.ContentPane");
+			dojo.ready(function(){
+			var OSVersionApply = function(){
+				alert(dijit.byId('busConfigureMutiSelect').get('value'));
+			};
+			var OSVersionAbolish = function(){
+				alert(dijit.byId('busConfigureMutiSelect').get('value'));
+			};
+			})
+        </script>
+    </head>
+
+    <body class="tundra" >
+		<div style="width:260px;height:50px;float:left;">
+			<div style="width:100%;height:45px;float:left;">
+				<div style="width:100%;height:33%;float:right;">
+					请上传通过程序生成的构件配置文件: <br>
+					<input id="dataConfigureName1" style="margin:8px;" dojoType="dijit.form.ValidationTextBox" promptMessage="请输入构件配置文件路径。" regExp="^.*?\.cfg$" required=true>
+					<div id="dataConfigurePath1"></div>
+				</div>
+			</div>	
+			<div style="width:260px;height:25px;float:right">
+				<button style="float:right;; margin-right:120px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="确定" iconClass="dijitNoIcon" onClick="OSVersionApply"></button>
+			</div>	  
+		</div>  
+    </body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dojo.data.ItemFileReadStore");
+        dojo.require("dijit.tree.ForestStoreModel");
+        dojo.require("dijit._tree.dndSource");
+        dojo.require("dijit.Tree");
+        dojo.addOnLoad(function(){
+            dijit.byId("tree").checkItemAcceptance = function(target,source){
+                var item = dijit.getEnclosingWidget(target).item;
+                return (item.id!="root"&&item.type=="category");
+            }
+        });
+    </script>
+    <title>Tree 3</title>
+</head>
+
+<body class="tundra" >
+<div dojoType="dojo.data.ItemFileReadStore" url="/dojoStudy/resource/Languageses.json" jsId="coffeeStore"></div>
+<div dojoType="dijit.tree.ForestStoreModel" jsId="model" store="coffeeStore" query="{type:'category'}" rootId="root" rootLabel="Programming Languages"></div>
+<!--JSON中的主键即identifier不可出现重名！！！！！-->
+<div dojoType="dijit.Tree" model="model" id="tree">
+    <script type="dojo/method" event="onClick" args="item,treeNode">
+        console.log("onClick:",coffeeStore.getLabel(item));
+    </script>
+</div>
+</body>
+</html>

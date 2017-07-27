@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+	<head>
+	<meta charset="utf-8">
+	<title>Hello World, Take 4</title>
+		<script
+			type="text/javascript"
+			src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+			djConfig="isDebug:true,parseOnLoad:true">
+		</script>
+		<link id="themeStyles" rel="stylesheet" title="tundra"
+            href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"
+            type="text/css" />
+		<link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+	</head>
+	<style type="text/css">
+	.keyWord{
+	   color: red;
+	}
+	</style>
+	<script type="text/javascript">
+		dojo.require("dojo.parser");
+		dojo.require("dijit.form.ScriptPane_DOM");
+        dojo.require("dojo.data.ItemFileReadStore");	
+        var entityData = 
+                	{
+                        	identifier: "type",
+                        	label: "name",
+                        	items: [{
+                                	name: "Customer",
+                                	label: "Customer",
+                                	type: "0"
+                        	}, {
+                                	name: "Event",
+                                	label: "Event",
+                                	type: "1"
+                        	},
+                        	{
+                                	name: "GetString",
+                                	label: "GetString",
+                                	type: "2"
+                        	}]
+                	}
+         var entityDataStore = new dojo.data.ItemFileReadStore({data: entityData});
+         var entityDataStoreMap = [];
+                	entityData = 
+                	{
+                        	identifier: "type",
+                        	label: "name",
+                        	items: [{
+                                	name: "BirthDay",
+                                	label: "BirthDay",
+                                	type: "0"
+                        	}, {
+                                	name: "Gender",
+                                	label: "Gender",
+                                	type: "1"
+                        	}]
+                	}
+        entityDataStoreMap['Customer'] = new dojo.data.ItemFileReadStore({data: entityData}); 
+                	entityData = 
+                	{
+                        	identifier: "type",
+                        	label: "name",
+                        	items: [{
+                                	name: "Voice",
+                                	label: "Voice",
+                                	type: "0"
+                        	}, {
+                                	name: "GPRS",
+                                	label: "GPRS",
+                                	type: "1"
+                        	}]
+                	}
+                	entityDataStoreMap['Event'] = new dojo.data.ItemFileReadStore({data: entityData}); 
+                	entityData = 
+                	{
+                        	identifier: "type",
+                        	label: "name",
+                        	items: [{
+                                	name: "GetString",
+                                	label: "GetString",
+                                	type: "0"
+                        	}]
+                	}
+         entityDataStoreMap['Function'] = new dojo.data.ItemFileReadStore({data: entityData});
+                	
+                	keyWords = ['and', 'or', 'if', 'else'];	
+                	dojo.addOnLoad(function(){dijit.byId('test').keyWords = keyWords;});
+	</script>
+	<body class="tundra">
+<div style="padding:10px 10px 0 10px" mce_style="padding:10px 10px 0 10px" >
+</div>
+<h1 id="towDialog">Test dijit.form.ScriptPane_DOM</h1>
+<div  id="test" dojoType="dijit.form.ScriptPane_DOM" entityStore="entityDataStore" subStoreMap="entityDataStoreMap"></div>
+    <INPUT type=button onclick="alert(dijit.byId('test').getValue())" value="getValue"/>
+</body>
+</html>

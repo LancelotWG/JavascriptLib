@@ -1,0 +1,668 @@
+<html>
+    <head>
+        <title>Register for Spam</title>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+		<script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+        <script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo/yahoo-min.js"></script>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+		<script type="text/css">
+			.cannotDelete{
+				color: red;
+			}
+		</script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+			dojo.require("dojo.dom");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.MultiSelect");
+			dojo.require("dijit.form.RadioButton");
+			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dijit.form.FilteringSelect");
+			var status = 0;/*0:add, 1:delete*/
+			var selectedTemp = [];/*0:from, 1:to*/
+			var dataFlow = {
+									from:[
+										{id:"TEST_1_MODEL",type:"SINT16"},
+										{id:"TEST_2_MODEL",type:"SINT16"},
+										{id:"TEST_3_MODEL",type:"SINT16"}
+									],
+									to:[
+										{id:"TEST_14_MODEL",type:"SINT16"},
+										{id:"TEST_15_MODEL",type:"SINT16"},
+										{id:"TEST_16_MODEL",type:"SINT16"},
+										{id:"TEST_17_MODEL",type:"SINT16"},
+										{id:"TEST_18_MODEL",type:"SINT16"}
+									]
+			};
+			var busConnect = {
+				busToModel:[
+					{id:0,data:{bus:"TEST_2_BUS",model:"TEST_2_MODEL"},index:{bus:0,model:0}}
+				], 
+				modelToBus:[
+					{id:0,data:{bus:"TEST_2_BUS",model:"TEST_16_MODEL"},index:{bus:0,model:0}}
+				]
+			};
+			/*var selectOptin = function(event){
+				if(event.currentTarget != event.target){
+					var busDataSelect = dojo.byId('busData');
+					var modelDataFromSelect = dojo.byId('ModelDataFrom');
+					var modelDataToSelect = dojo.byId('ModelDataTo');
+					var button = dijit.byId("busConnectOperate");					
+					switch(parseInt(status)){
+						case 0:
+							if(event.currentTarget == busDataSelect){
+								clearSelect(false,true,true);
+								var index = event.target.value;
+								for(var i = 0;i < busConnect.busToModel.length;i++){
+									var data = busConnect.busToModel[i];
+									var busIndex = data.index.bus;
+									if(busIndex == index){
+										modelDataFromSelect.childNodes[data.index.model].selected = true;
+									}
+								}
+								for(var i = 0;i < busConnect.modelToBus.length;i++){
+									var data = busConnect.modelToBus[i];
+									var busIndex = data.index.bus;
+									if(busIndex == index){
+										modelDataToSelect.childNodes[data.index.model].selected = true;
+									}
+								}
+							}else{
+								clearSelect(true,false,false);
+								var index = event.target.value;
+								if(event.currentTarget == modelDataFromSelect){
+									clearSelect(false,false,true);
+									for(var i = 0;i < busConnect.busToModel.length;i++){
+										var data = busConnect.busToModel[i];
+										var modelIndex = data.index.model;
+										if(modelIndex == index){
+											busDataSelect.childNodes[data.index.bus].selected = true;
+										}
+									}
+								}else{
+									clearSelect(false,true,false);
+									for(var i = 0;i < busConnect.modelToBus.length;i++){
+										var data = busConnect.modelToBus[i];
+										var modelIndex = data.index.model;
+										if(modelIndex == index){
+											busDataSelect.childNodes[data.index.bus].selected = true;
+										}
+									}
+								}
+							}
+							break;
+						case 1:
+							var jump = false;
+							if(event.currentTarget == busDataSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == busDataSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										for(var j = 0;j < selectedTemp.length;j++){
+											if(selectedTemp[j].parentNode == modelDataFromSelect){
+												clearSelect(false,false,true);
+											}else if(selectedTemp[j].parentNode == modelDataToSelect){
+												clearSelect(false,true,false);
+											}
+										}
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									for(var j = 0;j < selectedTemp.length;j++){
+										if(selectedTemp[j].parentNode == modelDataFromSelect){
+											clearSelect(false,false,true);
+											break;
+										}else if(selectedTemp[j].parentNode == modelDataToSelect){
+											clearSelect(false,true,false);
+											break;
+										}
+									}
+								}	
+							}else if(event.currentTarget == modelDataFromSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == modelDataFromSelect || selectedTemp[i].parentNode == modelDataToSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										clearSelect(false,false,true);
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									clearSelect(false,false,true);
+								}
+							}else if(event.currentTarget == modelDataToSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == modelDataToSelect || selectedTemp[i].parentNode == modelDataFromSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										clearSelect(false,true,false);
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									clearSelect(false,true,false);
+								}
+							}
+							if(selectedTemp.length == 2){
+								button.setDisabled(false);
+							}else{
+								button.setDisabled(true);
+							}
+							break;
+						case 2:
+							var jump = false;
+							if(event.currentTarget == busDataSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == busDataSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										for(var j = 0;j < selectedTemp.length;j++){
+											if(selectedTemp[j].parentNode == modelDataFromSelect){
+												clearSelect(false,false,true);
+											}else if(selectedTemp[j].parentNode == modelDataToSelect){
+												clearSelect(false,true,false);
+											}
+										}
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									for(var j = 0;j < selectedTemp.length;j++){
+										if(selectedTemp[j].parentNode == modelDataFromSelect){
+											clearSelect(false,false,true);
+											break;
+										}else if(selectedTemp[j].parentNode == modelDataToSelect){
+											clearSelect(false,true,false);
+											break;
+										}
+									}
+								}	
+							}else if(event.currentTarget == modelDataFromSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == modelDataFromSelect || selectedTemp[i].parentNode == modelDataToSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										clearSelect(false,false,true);
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									clearSelect(false,false,true);
+								}
+							}else if(event.currentTarget == modelDataToSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == modelDataToSelect || selectedTemp[i].parentNode == modelDataFromSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										clearSelect(false,true,false);
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									clearSelect(false,true,false);
+								}
+							}
+							if(getLinkID() != null){
+								button.setDisabled(false);
+							}else{
+								button.setDisabled(true);
+							}
+							break;
+					
+					}									
+				}else{
+					clearSelect(true,true,true);
+				}
+			};
+			var getLinkID = function(){
+				var busDataSelect = dojo.byId('busData');
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				var temp = [];
+				var type = 0;
+				if(selectedTemp.length == 2){
+					if(selectedTemp[0].parentNode == modelDataToSelect){
+						type = 1;
+						temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+					}
+					if(selectedTemp[1].parentNode == modelDataToSelect){
+						type = 1;
+						temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+					}
+					if(selectedTemp[0].parentNode == busDataSelect){
+						temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+					}
+					if(selectedTemp[1].parentNode == busDataSelect){
+						temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+					}
+					if(type == 0){
+						if(selectedTemp[0].parentNode == modelDataFromSelect){
+							temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+						}
+						if(selectedTemp[1].parentNode == modelDataFromSelect){
+							temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+						}
+					}
+					if(type == 0){
+						for(var i = 0;i < busConnect.busToModel.length;i++){
+							var item =  busConnect.busToModel[i];
+							if(item.index.bus == temp[0].index && item.index.model == temp[1].index){
+								return [0,item.id,i];
+							}
+						}
+					}else{
+						for(var i = 0;i < busConnect.modelToBus.length;i++){
+							var item =  busConnect.modelToBus[i];
+							if(item.index.model == temp[0].index && item.index.bus == temp[1].index){
+								return [1,item.id,i];
+							}
+						}
+					}
+					return null;
+				}else{
+					return null;
+				}
+			}
+			var clearSelect = function(bus,modelDataFrom,modelDataTo){
+				var busDataSelect = dojo.byId('busData');
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				if(bus){
+					for(var j = 0;j < busDataSelect.childNodes.length;j++){
+						busDataSelect.childNodes[j].selected = false;
+					}
+				}
+				if(modelDataFrom){
+					for(var j = 0;j < modelDataFromSelect.childNodes.length;j++){
+						modelDataFromSelect.childNodes[j].selected = false;
+					}
+				}
+				if(modelDataTo){
+					for(var j = 0;j < modelDataToSelect.childNodes.length;j++){
+						modelDataToSelect.childNodes[j].selected = false;
+					}
+				}
+			};
+			var action = function(){
+				var busDataSelect = dojo.byId('busData');
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				var button = dijit.byId("busConnectOperate");
+				var temp = [];
+				var type = 0;0:busToModel, 1:modelToBus
+				switch(parseInt(status)){
+					case 0:
+						//retain
+						break;
+					case 1:
+						if(selectedTemp[0].parentNode == modelDataToSelect){
+							type = 1;
+							temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+						}
+						if(selectedTemp[1].parentNode == modelDataToSelect){
+							type = 1;
+							temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+						}
+						if(selectedTemp[0].parentNode == busDataSelect){
+							temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+						}
+						if(selectedTemp[1].parentNode == busDataSelect){
+							temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+						}
+						if(type == 0){
+							if(selectedTemp[0].parentNode == modelDataFromSelect){
+								temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+							}
+							if(selectedTemp[1].parentNode == modelDataFromSelect){
+								temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+							}
+						}
+						if(getLinkID() == null){
+							if(type == 0){
+								busConnect.busToModel.push({id:0,data:{bus:temp[0].data,model:temp[1].data},index:{bus:temp[0].index,model:temp[1].index}});
+							}else{
+								busConnect.modelToBus.push({id:0,data:{bus:temp[1].data,model:temp[0].data},index:{bus:temp[1].index,model:temp[0].index}});
+							}
+						}else{
+							alert("请勿建立重复的连接！");
+							return;
+						}						
+						selectedTemp = [];
+						button.setDisabled(true);
+						//clearSelect(true,true,true);
+						break;
+					case 2:
+						var deleteLink = getLinkID();
+						if(deleteLink[0] == 0){
+							busConnect.busToModel.splice(deleteLink[2],1);
+						}else{
+							busConnect.modelToBus.splice(deleteLink[2],1);
+						}
+						selectedTemp = [];
+						button.setDisabled(true);
+						break;
+				}
+			};
+			var changeStatus = function(event){
+				var button = dijit.byId("busConnectOperate");
+				switch(parseInt(event.target.value)){
+					case 0:
+						status = 0;						
+						button.setLabel("操作");
+						button.setDisabled(true);
+						selectedTemp = [];
+						clearSelect(true,true,true);
+						break;
+					case 1:
+						status = 1;
+						button.setLabel("增加");
+						button.setDisabled(true);
+						selectedTemp = [];
+						clearSelect(true,true,true);
+						break;
+					case 2:
+						status = 2;
+						button.setLabel("删除");
+						button.setDisabled(true);
+						selectedTemp = [];
+						clearSelect(true,true,true);
+						break;
+				}
+				
+			};
+			var checkUniqueness = function(temp){
+				
+			};*/
+			var addDataItem = function(flowType/*0为from,1为to*/,id,type){
+				switch (flowType){
+					case 0:
+						this.dataFlow.from.push({id:id,type:type});
+						break;
+					case 1:
+						this.dataFlow.to.push({id:id,type:type});
+						break;
+				}
+			};
+			var removeDataItem = function(flowType,id){
+				switch (flowType){
+					case 0:
+						var temp = this.dataFlow.from;
+						for(var i = 0;i < busConnect.busToModel.length;i++){
+							if(busConnect.busToModel[i].data.model == id){
+								return false;
+							}
+						}
+						for(var i = 0;i<temp.length;i++){
+							if(temp[i].id == id){
+								this.dataFlow.from.splice(i,1);
+								return true;
+							}
+						}
+						break;
+					case 1:
+						var temp = this.dataFlow.to;
+						for(var i = 0;i < busConnect.modelToBus.length;i++){
+							if(busConnect.modelToBus[i].data.model == id){
+								return false;
+							}
+						}
+						for(var i = 0;i<temp.length;i++){
+							if(temp[i].id == id){
+								this.dataFlow.to.splice(i,1);
+								return true;
+							}
+						}
+						break;
+				}
+				return false;
+			};
+			var selectOptin = function(event){
+				switch(parseInt(status)){
+					case 0:
+							
+						break;
+					case 1:
+						if(event.currentTarget != event.target){
+							var modelDataFromSelect = dojo.byId('ModelDataFrom');
+							var modelDataToSelect = dojo.byId('ModelDataTo');
+							if(event.currentTarget == modelDataFromSelect){
+								clearSelect(false,true);
+							}else if(event.currentTarget == modelDataToSelect){
+								clearSelect(true,false);
+							}
+						}else{
+							clearSelect(true,true);
+						}
+						break;
+				}
+				
+			};
+			var checkUniqueness = function(dataID,flowType){
+				switch (flowType){
+					case 0:
+						for(var i = 0;i < dataFlow.from.length;i++){
+							if(dataFlow.from[i].id == dataID){
+								return false;
+							}
+						}
+						break;
+					case 1:
+						for(var i = 0;i < dataFlow.to.length;i++){
+							if(dataFlow.to[i].id == dataID){
+								return false;
+							}
+						}
+						break;
+				}
+				return true;
+			};
+			var updateBusConnectDlg = function(){
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				length = modelDataFromSelect.childNodes.length;
+				for(var i = 0;i < length;i++){
+					modelDataFromSelect.removeChild(modelDataFromSelect.childNodes[0]);
+				}
+				for(var i = 0;i < this.dataFlow.from.length;i++){
+					var option = window.document.createElement('option');
+					option.innerHTML = this.dataFlow.from[i].id;
+					option.value = this.dataFlow.from[i].id;
+					for(var j = 0;j < busConnect.busToModel.length;j++){
+						if(busConnect.busToModel[j].data.model == this.dataFlow.from[i].id){
+							option.style = "color:red";
+							//dojo.addClass(option,"cannotDelete");
+						}
+					}
+					if(i == 0){
+						//option.selected = true;
+					}
+					modelDataFromSelect.appendChild(option);
+				}
+				length = modelDataToSelect.childNodes.length;
+				for(var i = 0;i < length;i++){
+					modelDataToSelect.removeChild(modelDataToSelect.childNodes[0]);
+				}
+				for(var i = 0;i < this.dataFlow.to.length;i++){
+					var option = window.document.createElement('option');
+					option.innerHTML = this.dataFlow.to[i].id;
+					option.value = this.dataFlow.to[i].id;
+					for(var j = 0;j < busConnect.modelToBus.length;j++){
+						if(busConnect.modelToBus[j].data.model == this.dataFlow.to[i].id){
+							option.style = "color:red";
+							//dojo.addClass(option,"cannotDelete");
+						}
+					}
+					if(i == 0){
+						//option.selected = true;
+					}
+					modelDataToSelect.appendChild(option);
+				}
+			};
+			var action = function(){
+				switch(parseInt(status)){
+					case 0:
+						var componentDataFlowType = dijit.byId('componentDataFlowType');
+						var componentDataID = dijit.byId('componentDataID');
+						var componentDataType = dijit.byId('componentDataType');
+						if(componentDataFlowType.isValid() && componentDataID.isValid() && componentDataType.isValid()){
+							var dataID = componentDataID.get("value");
+							var dataType = componentDataType.get("value");
+							var flowType = parseInt(componentDataFlowType.get("value"));
+							if(checkUniqueness(dataID,flowType)){
+								addDataItem(flowType,dataID,dataType);
+								updateBusConnectDlg();
+							}else{
+								switch (flowType){
+									case 0:
+										alert("流入数据ID名重复");
+										break;
+									case 1:
+										alert("流出数据ID名重复");
+										break;
+								}
+							}
+						}else{
+							var error = "请";
+							if(!componentDataFlowType.isValid()){
+								error = error + "指定数据类别"
+							}
+							if(!componentDataID.isValid()){
+								error = error + "填充数据ID"
+							}
+							if(!componentDataType.isValid()){
+								error = error + "指定数据类型"
+							}
+							error = error + "!";
+							alert(error);
+						}
+						break;
+					case 1:
+						var modelDataFrom = (dijit.byId("ModelDataFrom")).get("value");
+						var modelDataTo = (dijit.byId('ModelDataTo')).get("value");
+						for(var i = 0;i < modelDataFrom.length;i++){
+							if(removeDataItem(0,modelDataFrom[i])){
+								
+							}else{
+								alert("无法删除已连入总线的数据项");
+							}
+						}
+						for(var i = 0;i < modelDataTo.length;i++){
+							if(removeDataItem(1,modelDataTo[i])){
+								
+							}else{
+								alert("无法删除已连入总线的数据项");
+							}
+						}
+						updateBusConnectDlg();
+						break;
+					}
+			};
+			var clearSelect = function(modelDataFrom,modelDataTo){
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				if(modelDataFrom){
+					for(var j = 0;j < modelDataFromSelect.childNodes.length;j++){
+						modelDataFromSelect.childNodes[j].selected = false;
+					}
+				}
+				if(modelDataTo){
+					for(var j = 0;j < modelDataToSelect.childNodes.length;j++){
+						modelDataToSelect.childNodes[j].selected = false;
+					}
+				}
+			};
+			var changeStatus = function(event){
+				var button = dijit.byId("componentEditorOperate");
+				var componentDataFlowType = dijit.byId('componentDataFlowType');
+				var componentDataID = dijit.byId('componentDataID');
+				var componentDataType = dijit.byId('componentDataType');
+				switch(parseInt(event.target.value)){
+					case 0:
+						status = 0;	
+						button.setLabel("增加");
+						componentDataFlowType.setDisabled(false);
+						componentDataID.setDisabled(false);
+						componentDataType.setDisabled(false);
+						//button.setDisabled(true);
+						//selectedTemp = [];
+						//clearSelect(true,true,true);					
+						break;
+					case 1:
+						status = 1;
+						button.setLabel("删除");
+						componentDataFlowType.setDisabled(true);
+						componentDataID.setDisabled(true);
+						componentDataType.setDisabled(true);
+						//button.setDisabled(true);
+						//selectedTemp = [];
+						clearSelect(true,true);
+						break;
+					}
+			};
+			dojo.ready(function(){
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				var modelDataFromMultiSelect = new dijit.form.MultiSelect({ name: 'modelDataFrom',style:"width:150px;height:100px;float:left;" }, modelDataFromSelect);
+				modelDataFromMultiSelect.startup();
+				var modelDataToMultiSelect = new dijit.form.MultiSelect({ name: 'modelDataTo',style:"width:150px;height:100px;float:left;" }, modelDataToSelect);
+				modelDataToMultiSelect.startup();
+				dojo.connect(modelDataFromMultiSelect,"onClick",selectOptin);
+				dojo.connect(modelDataToMultiSelect,"onClick",selectOptin);
+				updateBusConnectDlg();
+			});
+			
+        </script>
+		
+    </head>
+
+    <body class="tundra" text-align="center">
+		<div style="width:150px;height:220px;float:left;">
+			<span>模块数据(上为流入源)：</span></br>
+			<div style="width:150px;height:200px;margin-top:5px;float:left">
+				<select id="ModelDataFrom"></select>
+				<select id="ModelDataTo"></select>
+			</div> 
+		</div>
+		<div style="width:150px;height:220px;float:right;">
+			<div style="width:150px;float:left;margin-top:30px;">
+				<span>操作：</span>
+				<input name="operateStatus" value="0" checked="true" dojoType="dijit.form.RadioButton" onClick="changeStatus">增加
+				<input name="operateStatus" value="1"  dojoType="dijit.form.RadioButton" onClick="changeStatus">删除
+			</div>
+			<div style='margin-top:10px;float:left'>数据类别：</div>
+			<select id="componentDataFlowType" style='width:145px;float:left;margin-top:5px;' dojoType="dijit.form.FilteringSelect" autoComplete="true">
+                <option value="0">流入(From)</option>
+                <option value="1">流出(To)</option>
+                <script type="dojo/method" event="onChange" args="newValue">
+				    console.log("value changed to ",newValue);
+			    </script>
+            </select>
+			<div style='margin-top:10px;float:left'>数据ID：</div>
+			<input id="componentDataID" style='width:145px;float:left;margin-top:5px;' dojoType="dijit.form.ValidationTextBox" trim=true required=true
+                              invalidMessage="Required."></input>
+			<div style='margin-top:5px;float:left'>数据类型：</div>
+			<select id="componentDataType" style='width:145px;float:left;margin-top:5px;' dojoType="dijit.form.FilteringSelect" autoComplete="true" >
+                <option value="DT_SINT16">DT_SINT16</option>
+                <option value="DT_UINT16">DT_UINT16</option>
+                <script type="dojo/method" event="onChange" args="newValue">
+				    console.log("value changed to ",newValue);
+			    </script>
+            </select>
+			<button id="componentEditorOperate" style="float:left;margin-top:15px;margin-left:50px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" 
+			label="增加" iconClass="dijitNoIcon" onClick="action"></button>
+		</div>
+    </body>
+</html>

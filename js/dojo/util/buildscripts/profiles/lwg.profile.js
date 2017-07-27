@@ -1,0 +1,15 @@
+dependencies={
+    layers:[
+        {
+            name:"lwg.js",
+            dependencies:[
+                "dijit.form.Button",
+                "dijit.form.Form",
+                "dijit.form.ValidationTextBox"
+            ]
+        }
+    ],
+    prefixes:[
+        ["dijit","../dijit"]
+    ]
+}

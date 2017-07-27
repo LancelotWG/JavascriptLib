@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Fun with ItemFileReadStore!</title>
+        <script type="text/javascript" src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js" djConfig="isDebug:true"></script>
+        <script type="text/javascript">
+            dojo.require("dojo.data.ItemFileReadStore");
+            dojo.addOnLoad(function(){
+                coffeeStore = new dojo.data.ItemFileReadStore({url:"/dojoStudy/resource/coffee.json"});
+            })
+        </script>
+    </head>
+
+    <body>
+    </body>
+</html>

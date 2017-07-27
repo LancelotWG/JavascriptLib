@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>dojo资源调用</title>
+<script 
+	type="text/javascript" 
+	src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js" 		    djConfig="isDebug:true">
+</script>
+<script type="text/javascript">
+	dojo.registerModulePath("dtdg","/dojoStudy/js/dtdg");
+	dojo.require("dtdg.foo")
+	dojo.addOnLoad(function(){
+		dojo.body().innerHTML = "guess what? fibonacci(5)="+dtdg.foo.fibonacci(30);
+	});
+</script>
+</head>
+
+<body>
+</body>
+</html>

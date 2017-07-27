@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.layout.ContentPane");
+        dojo.require("dijit.Declaration");
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit.layout.TabContainer");
+    </script>
+    <title>TabContainer</title>
+</head>
+
+<body class="tundra" >
+<div id="stack" dojoType="dijit.layout.TabContainer"
+style="width: 225px;height: 100px; margin: 5px;border: solid 1px;">
+    <div dojoType="dijit.layout.ContentPane" title="one">
+        One fish...
+    </div>
+    <div dojoType="dijit.layout.ContentPane" title="tow">
+        Tow fish...
+    </div>
+    <div dojoType="dijit.layout.ContentPane" title="red" closable="true">
+        Red fish...
+        <script type="dojo/method" event="onClose" args="evt">
+            console.log("Closing",this.title);
+            return true;
+        </script>
+    </div>
+    <div dojoType="dijit.layout.ContentPane" title="blue">
+        Blue fish...
+    </div>
+</div>
+</body>
+</html>

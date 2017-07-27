@@ -1,0 +1,45 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.TitlePane");
+        dojo.require("dijit.form.Textarea");
+        dojo.addOnLoad(function(){
+            var ed = new dijit.form.Textarea({id:"titlePaneContent"});
+            dijit.byId("tp").setContent(ed.domNode);
+        });
+    </script>
+    <title>TitlePane</title>
+</head>
+
+<body class="tundra">
+<div dojoType="dijit.TitlePane" title="Grocery list:" style="width: 300px">
+    <ul>
+        <li>Eggs</li>
+        <li>Milk</li>
+        <li>Bananas</li>
+        <li>Coffee</li>
+    </ul>
+</div><br>
+<div id="tp" dojoType="dijit.TitlePane" style="width: 300px;">
+    <script type="dojo/connect" event="toggle">
+        if(!this.open){
+            var t = dijit.byId("titlePaneContent").getValue();
+            if(t.length>15){
+                t = t.slice(0,12)+"...";
+            }
+            this.setTitle(t);
+        }
+    </script>
+</div>
+
+</body>
+</html>

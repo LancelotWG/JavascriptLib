@@ -1,0 +1,144 @@
+Build started: Fri Apr 15 2016 21:07:51 GMT+0800 (CST)
+Build application version: 1.10.4 (37e1249)
+Messages:
+info(102) Optimizing module
+	module: dojo/dojo
+	module: dojo/lwg
+info(107) Package Version:
+	package: dijit; version: 1.10.4
+	package: dojo; version: 1.10.4
+warn(216) dojo/has plugin resource could not be resolved during build-time.
+	plugin resource id: dojo-bidi?./_BidiMixin; reference module id: dijit/_WidgetBase
+	plugin resource id: dojo-firebug?./_firebug/firebug; reference module id: dojo/main
+	plugin resource id: dom-addeventlistener?:./aspect; reference module id: dojo/on
+	plugin resource id: host-browser?dom-addeventlistener?:../on:; reference module id: dojo/request/watch
+warn(221) Assumed layer is referencing a dojo module.
+	layer name: lwg.js
+warn(224) A plugin dependency was encountered but there was no build-time plugin resolver.
+	module: dijit/form/_RadioButtonMixin; plugin: dojo/query
+	module: dijit/Fieldset; plugin: dojo/query
+	module: dijit/Tree; plugin: dojo/query
+	module: dijit/RadioMenuItem; plugin: dojo/query
+	module: dojo/request/node; plugin: dojo/node
+	module: dojo/request/node; plugin: dojo/node
+	module: dojo/request/node; plugin: dojo/node
+	module: dojo/request/node; plugin: dojo/node
+	module: dojo/request; plugin: dojo/request/default
+	module: dojo/request/registry; plugin: dojo/request/default
+Layer Contents:
+dojo/lwg:
+	dojo/uacss
+	dojo/text
+	dijit/hccss
+	dojo/request/default
+	dijit/form/_TextBoxMixin
+	dijit/Viewport
+	dijit/form/_FormMixin
+	dijit/a11yclick
+	dijit/form/TextBox
+	dijit/form/Form
+	dijit/layout/utils
+	dijit/form/_FormWidgetMixin
+	dojo/i18n
+	dijit/form/ValidationTextBox
+	dijit/BackgroundIframe
+	dijit/form/_FormValueMixin
+	dijit/form/templates/ValidationTextBox.html
+	dijit/form/nls/validate
+	dojo/Stateful
+	dojo/touch
+	dijit/_CssStateMixin
+	dojo/hccss
+	dojo/string
+	dijit/form/_FormValueWidget
+	dijit/form/Button
+	dijit/_AttachMixin
+	dijit/registry
+	dijit/Destroyable
+	dijit/_base/manager
+	dojo/request
+	dijit/a11y
+	dijit/form/templates/Button.html
+	dijit/templates/Tooltip.html
+	dojo/lwg
+	dijit/place
+	dijit/_Widget
+	dojo/cache
+	dijit/_FocusMixin
+	dijit/_OnDijitClickMixin
+	dijit/focus
+	dijit/main
+	dijit/form/_ButtonMixin
+	dijit/form/_FormWidget
+	dijit/_TemplatedMixin
+	dojo/window
+	dijit/Tooltip
+	dijit/form/templates/TextBox.html
+	dijit/layout/_ContentPaneResizeMixin
+	dijit/_WidgetBase
+
+dojo/dojo:
+	dojo/_base/fx
+	dojo/dom-form
+	dojo/promise/tracer
+	dojo/errors/RequestError
+	dojo/_base/html
+	dojo/_base/kernel
+	dojo/io-query
+	dojo/_base/Deferred
+	dojo/NodeList-dom
+	dojo/query
+	dojo/has
+	dojo/_base/loader
+	dojo/json
+	dojo/_base/declare
+	dojo/dom
+	dojo/_base/browser
+	dojo/errors/RequestTimeoutError
+	dojo/dom-style
+	dojo/dom-geometry
+	dojo/dom-prop
+	dojo/when
+	dojo/dom-attr
+	dojo/dom-construct
+	dojo/request/xhr
+	dojo/keys
+	dojo/domReady
+	dojo/_base/lang
+	dojo/Evented
+	dojo/request/util
+	dojo/mouse
+	dojo/topic
+	dojo/_base/xhr
+	dojo/dojo
+	dojo/_base/unload
+	dojo/Deferred
+	dojo/_base/NodeList
+	dojo/_base/Color
+	dojo/promise/instrumentation
+	dojo/selector/_loader
+	dojo/promise/Promise
+	dojo/request/watch
+	dojo/on
+	dojo/_base/sniff
+	dojo/errors/create
+	dojo/_base/array
+	dojo/_base/json
+	dojo/_base/window
+	dojo/dom-class
+	dojo/_base/config
+	dojo/_base/event
+	dojo/main
+	dojo/sniff
+	dojo/request/handlers
+	dojo/ready
+	dojo/aspect
+	dojo/_base/connect
+	dojo/errors/CancelError
+
+
+
+Process finished normally
+	errors: 0
+	warnings: 15
+	build time: 24.485 seconds

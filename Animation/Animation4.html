@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Fun with Animation!</title>
+        <style type="text/css">
+            @import "http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css";
+            .box{
+                width: 200px;
+                height: 200px;
+                margin: 5px;
+                text-align: center;
+            }
+            .blueBox{
+                background:blue;
+                float:left;
+            }
+            .redBox{
+                background:red;
+                float:left;
+            }
+            .greenBox{
+                background:green;
+                float:left;
+            }
+        </style>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true">
+        </script>
+        <script type="text/javascript" >
+            dojo.addOnLoad(function(){
+                var box = dojo.byId("box1");
+                dojo.connect(box,"onclick",function(evt){
+                    var anim = dojo.animateProperty({node:box,
+                        duration:3000,
+                        properties:{
+                            height:{start:'200',end:'400'},
+                            width:{start:'200',end:'400'}
+                        }});
+                    anim.play();
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <div id="box1" class="box blueBox">Fade Me Out</div>
+        <div id="box2" class="box redBox">Fade Me Out</div>
+        <div id="box3" class="box greenBox">Fade Me Out</div>
+    </body>
+</html>

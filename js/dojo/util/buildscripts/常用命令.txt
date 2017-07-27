@@ -1,0 +1,2 @@
+build profile=lwg action=release
+build profile=lwgtext action=release optimize=shrinksafe releaseName=lwgtext version=0.1.0

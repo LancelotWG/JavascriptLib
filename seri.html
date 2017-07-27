@@ -1,0 +1,111 @@
+<script>
+ separatorArray="^",
+    separatorObjectItem="$",
+    separatorObjectAttribute="-",
+    separatorArrayStart="|",
+    separatorArrayEnd="!",
+    separatorObjectStart="%",
+    separatorObjectEnd="~",
+    separatorPlaceholder="`",
+    dataSerialization=function(data){
+        var serialization = "";
+        if(data instanceof Array){
+            serialization += this.separatorArrayStart;
+            for(var i = 0;i<data.length;i++){
+                serialization += this.dataSerialization(data[i]);
+                if(i == data.length-1){
+
+                }else{
+                    serialization += this.separatorArray;
+                }
+            }
+            serialization += this.separatorArrayEnd;
+        }else if(data instanceof Object){
+            var first = true;
+            serialization += this.separatorObjectStart;
+            for(var item in data){
+                if(!first){
+                    serialization += this.separatorObjectAttribute;
+                }
+                serialization = serialization + item + this.separatorObjectItem;
+                serialization += this.dataSerialization(data[item]);
+                first = false;
+            }
+            serialization += this.separatorObjectEnd;
+        }else{
+            serialization += data
+        }
+        return serialization;
+    },
+    dataDeserialization=function(data){
+        var type = data.charAt(0);
+        var deserialization;
+        var temp = [];
+        data = data.slice(1,data.length-1);
+        var indexStart;
+        var charStart;
+        var indexEnd;
+        var charEnd;
+        var find = false;
+        var repeat = 1;
+        for(var i = 0;i<data.length;i++){
+            if(!find){
+                if(data.charAt(i) == "|" || data.charAt(i) == "%"){
+                    charStart = data.charAt(i);
+                    indexStart = i;
+                    find = true;
+                    if(charStart == "|"){
+                        charEnd = "!";
+                    }else if(charStart == "%"){
+                        charEnd = "~";
+                    }
+                    continue;
+                }
+            }
+            if(find){
+                if(data.charAt(i) == charEnd){
+                    repeat--;
+                    if(repeat == 0){
+                        indexEnd = i;
+                        var subData = data.slice(indexStart,indexEnd+1);
+                        data = data.replace(subData,this.separatorPlaceholder);
+                        var deserializationTemp = this.dataDeserialization(subData);
+                        temp.push(deserializationTemp);
+                        find = false;
+                        i=-1;
+                        repeat = 1;
+                    }
+                }else if(data.charAt(i) == charStart){
+                    repeat++;
+                }
+            }
+        }
+        if(type == this.separatorArrayStart){
+            deserialization = [];
+            var items = data.split("^");
+            var tempIndex = 0;
+            for(var i = 0; i<items.length;i++){
+                if(items[i] == this.separatorPlaceholder){
+                    deserialization.push(temp[tempIndex++]);
+                }else{
+                    deserialization.push(items[i]);
+                }
+            }
+        }else if(type == this.separatorObjectStart){
+            deserialization = {};
+            var items = data.split("-");
+            var tempIndex = 0;
+            for(var i = 0; i<items.length;i++){
+                var attributes = items[i].split("$");
+                if(attributes[1] == this.separatorPlaceholder){
+                    deserialization[attributes[0]] = temp[tempIndex++];
+                }else{
+                    deserialization[attributes[0]] = attributes[1];
+                }
+            }
+        }else{
+            deserialization = data;
+        }
+        return deserialization;
+    }
+</script>

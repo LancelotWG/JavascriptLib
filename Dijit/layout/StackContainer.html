@@ -1,0 +1,57 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.layout.ContentPane");
+        dojo.require("dijit.Declaration");
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit.layout.StackContainer");
+        dojo.addOnLoad(function(){
+            var b = dojo.byId("stack");
+            var container = new dijit.layout.StackContainer({},b);
+            var bb = dijit.byId("back");
+            var f = dijit.byId("forward");
+            dojo.connect(bb,"onClick",function(evt){
+                container.back();
+            });
+            dojo.connect(f,"onClick",function(evt){
+                container.forward();
+            });
+            var leftChild = new dijit.layout.ContentPane({});
+            leftChild.domNode.innerHTML = "page 1";
+            var rightChild = new dijit.layout.ContentPane({});
+            rightChild.domNode.innerHTML = "page 2";
+            container.addChild(leftChild);
+            container.addChild(rightChild);
+            container.startup();
+        })
+    </script>
+    <title>StackContainer</title>
+</head>
+
+<body class="tundra" >
+<div id="stack" >
+
+</div>
+<button dojoType="dijit.form.Button" id="back">&lt;
+<!--<script type="" event="onClick" args="evt">
+    var b = dijit.byId("stack");
+    b.back();
+</script>-->
+</button>
+<button dojoType="dijit.form.Button" id="forward">&gt;
+    <!--<script type="" event="onClick" args="evt">
+        var f = dijit.byId("stack");
+        f.forward();
+    </script>-->
+</button>
+</body>
+</html>

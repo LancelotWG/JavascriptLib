@@ -1,0 +1,194 @@
+<html>
+    <head>
+        <title>Register for Spam</title>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+		<script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+        <script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo/yahoo-min.js"></script>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+		<script type="text/css">
+			.cannotDelete{
+				color: red;
+			}
+		</script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+			dojo.require("dojo.dom");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.MultiSelect");
+			dojo.require("dijit.form.RadioButton");
+			dojo.require("dijit.form.ValidationTextBox");
+			dojo.require("dijit.form.FilteringSelect");
+			var status = 0;/*0:add, 1:delete*/
+			var selectedTemp = [];/*0:from, 1:to*/
+			var dataFlow = {
+				name:"TEST_NAME",
+                data: [
+                    {id:"TEST_1",type:"SINT16"}
+                ]
+			};
+			var addDataItem = function(id,type){
+				this.dataFlow.from.push({id:id,type:type});
+			};
+			var removeDataItem = function(id){
+				
+				var temp = this.dataFlow.from;
+				for(var i = 0;i < busConnect.busToModel.length;i++){
+					if(busConnect.busToModel[i].data.model == id){
+						return false;
+					}
+				}
+				for(var i = 0;i<temp.length;i++){
+					if(temp[i].id == id){
+						this.dataFlow.from.splice(i,1);
+						return true;
+					}
+				}
+				return false;
+			};
+			var selectOptin = function(event){
+				switch(parseInt(status)){
+					case 0:
+							
+						break;
+					case 1:
+						if(event.currentTarget != event.target){
+							
+						}else{
+							
+						}
+						break;
+				}
+				
+			};
+			var checkUniqueness = function(dataID){
+				for(var i = 0;i < dataFlow.from.length;i++){
+					if(dataFlow.from[i].id == dataID){
+						return false;
+					}
+				}
+				return true;
+			};
+			var updateBusConnectDlg = function(){
+				var busEditorData = dojo.byId('busEditorData');
+				var length = busEditorData.childNodes.length;
+				for(var i = 0;i < length;i++){
+					busEditorData.removeChild(busEditorData.childNodes[0]);
+				}
+				for(var i = 0;i < this.dataFlow.from.length;i++){
+					var option = window.document.createElement('option');
+					option.innerHTML = this.dataFlow.from[i].id;
+					option.value = this.dataFlow.from[i].id;
+					for(var j = 0;j < busConnect.busToModel.length;j++){
+						if(busConnect.busToModel[j].data.model == this.dataFlow.from[i].id){
+							option.style = "color:red";
+							//dojo.addClass(option,"cannotDelete");
+						}
+					}
+					if(i == 0){
+						//option.selected = true;
+					}
+					busEditorData.appendChild(option);
+				}
+			};
+			var action = function(){
+				switch(parseInt(status)){
+					case 0:
+						var busEditorDataID = dijit.byId('busEditorDataID');
+						var busEditorDataType = dijit.byId('busEditorDataType');
+						if(busEditorDataID.isValid() && busEditorDataType.isValid()){
+							var dataID = busEditorDataID.get("value");
+							var dataType = busEditorDataType.get("value");
+							if(checkUniqueness(dataID)){
+								addDataItem(dataID,dataType);
+								updateBusConnectDlg();
+							}else{
+								alert("数据ID名重复");
+							}
+						}else{
+							var error = "请";
+							if(!busEditorDataID.isValid()){
+								error = error + "填充数据ID"
+							}
+							if(!busEditorDataType.isValid()){
+								error = error + "指定数据类型"
+							}
+							error = error + "!";
+							alert(error);
+						}
+						break;
+					case 1:
+						var busEditorData = (dijit.byId("busEditorData")).get("value");
+						for(var i = 0;i < busEditorData.length;i++){
+							if(removeDataItem(busEditorData[i])){
+								
+							}else{
+								alert("无法删除已连入总线的数据项");
+							}
+						}
+						updateBusConnectDlg();
+						break;
+					}
+			};
+			var changeStatus = function(event){
+				var button = dijit.byId("busEditorOperate");
+				var busEditorDataID = dijit.byId('busEditorDataID');
+				var busEditorDataType = dijit.byId('busEditorDataType');
+				switch(parseInt(event.target.value)){
+					case 0:
+						status = 0;	
+						button.setLabel("增加");
+						busEditorDataID.setDisabled(false);
+						busEditorDataType.setDisabled(false);				
+						break;
+					case 1:
+						status = 1;
+						button.setLabel("删除");
+						busEditorDataID.setDisabled(true);
+						busEditorDataType.setDisabled(true);
+						break;
+					}
+			};
+			dojo.ready(function(){
+				var busEditorDataSelect = dojo.byId('busEditorData');
+				var busEditorDataMultiSelect = new dijit.form.MultiSelect({ name: 'busEditorData',style:"width:150px;height:200px;float:left;" }, busEditorDataSelect);
+				busEditorDataMultiSelect.startup();
+				dojo.connect(busEditorDataMultiSelect,"onClick",selectOptin);
+				updateBusConnectDlg();
+			});
+			
+        </script>
+		
+    </head>
+
+    <body class="tundra" text-align="center">
+		<div style="width:150px;height:220px;float:left;">
+			<span>Bus总线：</span></br>
+			<div style="width:150px;height:200px;margin-top:5px;float:left">
+				<select id="busEditorData"></select>
+			</div> 
+		</div>
+		<div style="width:150px;height:220px;float:right;">
+			<div style="width:150px;float:left;margin-top:50px;">
+				<span>操作：</span>
+				<input name="busEditorOperateStatus" value="0" checked="true" dojoType="dijit.form.RadioButton" onClick="changeStatus">增加
+				<input name="busEditorOperateStatus" value="1"  dojoType="dijit.form.RadioButton" onClick="changeStatus">删除
+			</div>
+			<div style='margin-top:10px;float:left'>数据ID：</div>
+			<input id="busEditorDataID" style='width:145px;float:left;margin-top:5px;' dojoType="dijit.form.ValidationTextBox" trim=true required=true
+                              invalidMessage="Required."></input>
+			<div style='margin-top:5px;float:left'>数据类型：</div>
+			<select id="busEditorDataType" style='width:145px;float:left;margin-top:5px;' dojoType="dijit.form.FilteringSelect" autoComplete="true" >
+                <option value="SINT16">DT_SINT16</option>
+                <option value="UINT16">DT_UINT16</option>
+            </select>
+			<button id="busEditorOperate" style="float:left;margin-top:15px;margin-left:50px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" 
+			label="增加" iconClass="dijitNoIcon" onClick="action"></button>
+		</div>
+    </body>
+</html>

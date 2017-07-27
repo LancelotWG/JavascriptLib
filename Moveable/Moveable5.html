@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Moving Around</title>
+<style type="text/css">
+        .note{
+            background: #FFFFBF;
+            border-bottom: 1px solid black;
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            width: 300px;
+            height: 300px;
+            margin: 0px;
+            padding: 0px;
+        }
+        .noteHandle{
+            border-left: 1px solid black;
+            border-right: 1px solid black;
+            border-top: 1px solid black;
+            cursor: pointer;
+            background: #FFFF8F;
+            width: 300px;
+            height: 10px;
+            margin: 0px;
+            padding: 0px;
+        }
+        .movingNote{
+            background: #FFFF3F;
+        }
+        #note1, #note2{
+            width:302px;
+        }
+    </style>
+ <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.dnd.Moveable");
+        dojo.require("dojo.dnd.move");
+        dojo.require("dojo.parser");
+        dojo.addOnLoad(function(){
+            var f1 = function(){
+                var mb2 = dojo.marginBox("note2");
+                b = {};
+                b["t"] = 0;
+                b["l"] = 0;
+                b["w"] = mb2.l+mb2.w+50;
+                b["h"] = mb2.t+mb2.h+50;
+                return b;
+            }
+            //var m1 = new dojo.dnd.Moveable("note1",{handle:"dragHandle1"});
+            var m1 = new dojo.dnd.move.constrainedMoveable("note1",{handle:"dragHandle1",constraints:f1,within:true});
+            var m2 = new dojo.dnd.Moveable("note2",{handle:"dragHandle2"});
+            var zIdx = 1;
+            dojo.subscribe("/dnd/move/start",function(noe){
+                console.log("Start moving ",noe);
+                //dojo.style(noe,{zindex:2});
+            });
+            dojo.subscribe("/dnd/move/stop",function(ode){
+                console.log("Stop moving ",ode);
+                //dojo.style(ode,{zindex:1});
+            });
+            dojo.connect(m1,"onMoveStart",function(move){
+                console.log("note1, start moving with mover: ",move);
+                dojo.query("#note1 > textarea").addClass("movingNote");
+                dojo.style(move.host.node,"zIndex",zIdx++);
+            });
+            dojo.connect(m1,"onMoveStop",function(mov){
+                console.log("note1, stop moving with mover: ",mov);
+                dojo.query("#note1 > textarea").removeClass("movingNote");
+            });
+            dojo.connect(m2,"onMoveStart",function(move){
+                console.log("note2, start moving with mover: ",move);
+                dojo.query("#note2 > textarea").addClass("movingNote");
+                dojo.style(move.host.node,"zIndex",zIdx++);
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <div id="note1" data-dojo-type="dojo.dnd.Moveable" >
+        <div id="dragHandle1" class="noteHandle" ></div>
+        <textarea class="note">Type some text here!/\nnote1</textarea>
+    </div>
+    <div id="note2" data-dojo-type="dojo.dnd.Moveable" >
+        <div id="dragHandle2" class="noteHandle" ></div>
+        <textarea class="note">Type some text here!/\nnote12</textarea>
+    </div>
+</body>
+</html>

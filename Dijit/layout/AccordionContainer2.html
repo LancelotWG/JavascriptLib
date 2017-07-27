@@ -1,0 +1,55 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.layout.AccordionPane");
+        dojo.require("dijit.Declaration");
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit.layout.AccordionContainer");
+        dojo.require("dijit.layout.ContentPane");
+        dojo.addOnLoad(function(){
+            var container = new dijit.layout.AccordionContainer(
+                    {
+                        style:"width:1000px;height:1000px"
+                    },
+                    "stack"
+            );
+            var c1 = dojo.doc.createElement("div");
+            c1.innerHTML = "pane 1";
+            var con1 = dojo.doc.createElement("p");
+            con1.innerHTML = "content 1";
+            dojo.place(con1,c1,0);
+            var ap1 = new dijit.layout.AccordionPane({
+                title:"pane1",
+                selected:true
+            },c1);
+            container.addChild(ap1);
+            var c2 = dojo.doc.createElement("div");
+            c2.innerHTML = "pane 2";
+            var con2 = dojo.doc.createElement("p");
+            con2.innerHTML = "content 2";
+            dojo.place(con2,c2,0);
+            var ap2 = new dijit.layout.AccordionPane({
+                title:"pane2"
+            },c2);
+            container.addChild(ap2);
+            container.startup();
+        })
+    </script>
+    <title>AccordionContainer</title>
+</head>
+
+<body class="tundra" >
+<div id="stack">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,755 @@
+<html>
+    <head>
+        <title>Register for Spam</title>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+		<script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+        <script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo/yahoo-min.js"></script>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+			dojo.require("dojo.dom");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.MultiSelect");
+			dojo.require("dijit.form.RadioButton");
+			var status = 0;/*0:normal, 1:add, 2:delete*/
+			var selectedTemp = [];/*0:from, 1:to*/
+			var busData = /*[ {id:"TEST_1_BUS"},
+							{id:"TEST_2_BUS"},
+							{id:"TEST_3_BUS"},
+							{id:"TEST_4_BUS"},
+							{id:"TEST_5_BUS"},
+							{id:"TEST_6_BUS"},
+							{id:"TEST_7_BUS"},
+							{id:"TEST_8_BUS"},
+							{id:"TEST_9_BUS"},
+							{id:"TEST_10_BUS"},
+							{id:"TEST_11_BUS"},
+							{id:"TEST_12_BUS"},
+							{id:"TEST_13_BUS"},
+							{id:"TEST_14_BUS"},
+							{id:"TEST_15_BUS"},
+							{id:"TEST_16_BUS"},
+							{id:"TEST_17_BUS"},
+							{id:"TEST_18_BUS"},
+							{id:"TEST_19_BUS"},
+							{id:"TEST_20_BUS"},
+							{id:"TEST_21_BUS"},
+							{id:"TEST_22_BUS"},
+							{id:"TEST_23_BUS"},
+							{id:"TEST_24_BUS"},
+							{id:"TEST_25_BUS"},
+							{id:"TEST_26_BUS"},
+							{id:"TEST_27_BUS"},
+							{id:"TEST_28_BUS"}
+							];*/
+							[
+								{
+									name:"TEST",
+									data:[
+										{id:"TEST_1_BUS",type:"SINT16"},
+										{id:"TEST_2_BUS",type:"SINT16"},
+										{id:"TEST_3_BUS",type:"SINT16"},
+										{id:"TEST_4_BUS",type:"SINT16"},
+										{id:"TEST_5_BUS",type:"SINT16"},
+										{id:"TEST_6_BUS",type:"SINT16"},
+										{id:"TEST_7_BUS",type:"SINT16"},
+										{id:"TEST_8_BUS",type:"SINT16"},
+										{id:"TEST_9_BUS",type:"SINT16"},
+										{id:"TEST_10_BUS",type:"SINT16"},
+										{id:"TEST_11_BUS",type:"SINT16"},
+										{id:"TEST_12_BUS",type:"SINT16"},
+										{id:"TEST_13_BUS",type:"SINT16"},
+										{id:"TEST_14_BUS",type:"SINT16"},
+										{id:"TEST_15_BUS",type:"SINT16"},
+										{id:"TEST_16_BUS",type:"SINT16"},
+										{id:"TEST_17_BUS",type:"SINT16"},
+										{id:"TEST_18_BUS",type:"SINT16"},
+										{id:"TEST_19_BUS",type:"SINT16"},
+										{id:"TEST_20_BUS",type:"SINT16"},
+										{id:"TEST_21_BUS",type:"SINT16"},
+										{id:"TEST_22_BUS",type:"SINT16"},
+										{id:"TEST_23_BUS",type:"SINT16"}
+									]
+								}
+							];
+			var modelData = /*[{id:"TEST_1_MODEL"},
+								 {id:"TEST_2_MODEL"},
+								 {id:"TEST_3_MODEL"},
+								 {id:"TEST_4_MODEL"},
+								 {id:"TEST_5_MODEL"},
+								 {id:"TEST_6_MODEL"},
+								 {id:"TEST_7_MODEL"},
+								 {id:"TEST_8_MODEL"},
+								 {id:"TEST_9_MODEL"},
+								 {id:"TEST_10_MODEL"},
+								 {id:"TEST_11_MODEL"},
+								 {id:"TEST_12_MODEL"},
+								 {id:"TEST_13_MODEL"},
+								 {id:"TEST_14_MODEL"},
+								 {id:"TEST_15_MODEL"},
+								 {id:"TEST_16_MODEL"},
+								 {id:"TEST_17_MODEL"},
+								 {id:"TEST_18_MODEL"},
+								 {id:"TEST_19_MODEL"},
+								 {id:"TEST_20_MODEL"},
+								 {id:"TEST_21_MODEL"},
+								 {id:"TEST_22_MODEL"},
+								 {id:"TEST_23_MODEL"},
+								 {id:"TEST_24_MODEL"},
+								 {id:"TEST_25_MODEL"},
+								 {id:"TEST_26_MODEL"},
+								 {id:"TEST_27_MODEL"},
+								 {id:"TEST_28_MODEL"}
+								 ];*/
+								 {
+									from:[
+										{id:"TEST_1_MODEL",type:"SINT16"},
+										{id:"TEST_2_MODEL",type:"SINT16"},
+										{id:"TEST_3_MODEL",type:"SINT16"},
+										{id:"TEST_4_MODEL",type:"SINT16"},
+										{id:"TEST_5_MODEL",type:"SINT16"},
+										{id:"TEST_6_MODEL",type:"SINT16"},
+										{id:"TEST_7_MODEL",type:"SINT16"},
+										{id:"TEST_8_MODEL",type:"SINT16"},
+										{id:"TEST_9_MODEL",type:"SINT16"},
+										{id:"TEST_10_MODEL",type:"SINT16"},
+										{id:"TEST_11_MODEL",type:"SINT16"},
+										{id:"TEST_12_MODEL",type:"SINT16"},
+										{id:"TEST_13_MODEL",type:"SINT16"}
+									],
+									to:[
+										{id:"TEST_14_MODEL",type:"SINT16"},
+										{id:"TEST_15_MODEL",type:"SINT16"},
+										{id:"TEST_16_MODEL",type:"SINT16"},
+										{id:"TEST_17_MODEL",type:"SINT16"},
+										{id:"TEST_18_MODEL",type:"SINT16"},
+										{id:"TEST_19_MODEL",type:"SINT16"},
+										{id:"TEST_20_MODEL",type:"SINT16"},
+										{id:"TEST_21_MODEL",type:"SINT16"},
+										{id:"TEST_22_MODEL",type:"SINT16"},
+										{id:"TEST_23_MODEL",type:"SINT16"},
+										{id:"TEST_24_MODEL",type:"SINT16"},
+										{id:"TEST_25_MODEL",type:"SINT16"},
+										{id:"TEST_26_MODEL",type:"SINT16"},
+										{id:"TEST_27_MODEL",type:"SINT16"}
+									]
+								};
+			var busConnect = {
+						busToModel:[
+							{id:0,data:{bus:"TEST_1_BUS",model:"TEST_2_MODEL"},index:{bus:0,model:1}},
+							{id:1,data:{bus:"TEST_3_BUS",model:"TEST_1_MODEL"},index:{bus:2,model:0}},
+							{id:2,data:{bus:"TEST_3_BUS",model:"TEST_1_MODEL"},index:{bus:12,model:8}},
+							{id:3,data:{bus:"TEST_3_BUS",model:"TEST_1_MODEL"},index:{bus:4,model:10}},
+							{id:4,data:{bus:"TEST_3_BUS",model:"TEST_1_MODEL"},index:{bus:6,model:3}},
+							{id:5,data:{bus:"TEST_3_BUS",model:"TEST_1_MODEL"},index:{bus:17,model:12}},
+							{id:6,data:{bus:"TEST_3_BUS",model:"TEST_1_MODEL"},index:{bus:0,model:11}},
+							{id:7,data:{bus:"TEST_3_BUS",model:"TEST_1_MODEL"},index:{bus:7,model:6}},
+							{id:8,data:{bus:"TEST_3_BUS",model:"TEST_1_MODEL"},index:{bus:11,model:5}}
+						],
+						modelToBus:[
+							{id:0,data:{bus:"TEST_4_BUS",model:"TEST_16_MODEL"},index:{bus:3,model:2}},
+							{id:1,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:19,model:0}},
+							{id:2,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:10,model:11}},
+							{id:3,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:14,model:3}},
+							{id:4,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:20,model:6}},
+							{id:5,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:22,model:5}},
+							{id:6,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:18,model:7}},
+							{id:7,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:13,model:13}},
+							{id:8,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:9,model:1}},
+							{id:9,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:5,model:4}},
+							{id:10,data:{bus:"TEST_2_BUS",model:"TEST_15_MODEL"},index:{bus:14,model:4}}
+						]
+					};
+			var YD = YAHOO.util.Dom;
+			var calculateLinkPoint = function(/*0:Bus,1:Model*/type,option){
+				var point = [0,0];
+				var parentNode = option.parentNode;
+				var parentPoint = YD.getXY(parentNode);
+				var myPoint = YD.getXY(option);
+				var Height = option.offsetHeight;
+				var width = parentNode.offsetWidth;
+				if(type){
+					point[0] = myPoint[0];
+				}else{
+					point[0] = myPoint[0] + width;
+				}
+			
+				point[1] = myPoint[1] + Height/2;
+				if(point[1] <= parentPoint[1] + Height/2){
+					point[1] = parentPoint[1] + Height/2;
+				}
+				if(point[1] >= parentPoint[1] + parentNode.offsetHeight - Height/2){
+					point[1] = parentPoint[1] + parentNode.offsetHeight - Height/2;
+				}
+				return point;
+			};
+			var drawBusConnect = function(){
+				for(var i = 0;i < busConnect.busToModel.length;i++){
+					var data = busConnect.busToModel[i];
+					var busIndex = data.index.bus;
+					var modelIndex = data.index.model;
+					var busOption = dojo.byId('busData').childNodes[busIndex];
+					var modelOption = dojo.byId('ModelDataFrom').childNodes[modelIndex]
+					var bus = calculateLinkPoint(0,busOption);
+					var model = calculateLinkPoint(1,modelOption);
+					drawLink(bus,model,busOption.selected||modelOption.selected);
+				}
+				for(var i = 0;i < busConnect.modelToBus.length;i++){
+					var data = busConnect.modelToBus[i];
+					var busIndex = data.index.bus;
+					var modelIndex = data.index.model;
+					var busOption = dojo.byId('busData').childNodes[busIndex];
+					var modelOption = dojo.byId('ModelDataTo').childNodes[modelIndex]
+					var model = calculateLinkPoint(1,modelOption);
+					var bus = calculateLinkPoint(0,busOption);
+					drawLink(model,bus,busOption.selected||modelOption.selected);
+				}
+			}
+			var drawLink = function(from,to,select){
+				var can = document.getElementById('connect');
+				var parentPoint = YD.getXY(can);
+				from[0] -= parentPoint[0];
+				from[1] -= parentPoint[1];
+				to[0] -= parentPoint[0];
+				to[1] -= parentPoint[1];
+				var k1 = 1/5;
+				var k2 = 1/7;
+				var p1 = {x:from[0],y:from[1]};
+				var p2 = {x:to[0],y:to[1]};
+				var p3 = {x:k1*p1.x + (1-k1)*p2.x,y:k2*p2.y + (1-k2)*p1.y};
+				var p4 = {x:k1*p2.x + (1-k1)*p1.x,y:k2*p1.y + (1-k2)*p2.y};
+				if(can.getContext){  
+					var cxt = can.getContext('2d');
+					cxt.save();
+					if(p1.x < p2.x){
+						if(select){
+							cxt.strokeStyle = "rgba(0,0,255,1)";
+							cxt.fillStyle = "rgba(0,0,255,1)";
+							cxt.lineWidth = 3;
+						}else{
+							cxt.strokeStyle = "rgba(0,0,200,1)";
+							cxt.fillStyle = "rgba(0,0,200,1)";
+							cxt.lineWidth = 1;
+						}
+						var rad = Math.atan((p1.y - p3.y)/(p3.x - p1.x)) - Math.PI;
+						drawArrows(cxt,p2,rad);
+					}else{
+						if(select){
+							cxt.strokeStyle = "rgba(0,255,0,1)";
+							cxt.fillStyle = "rgba(0,255,0,1)";
+							cxt.lineWidth = 3;
+						}else{
+							cxt.strokeStyle = "rgba(0,200,0,1)";
+							cxt.fillStyle = "rgba(0,200,0,1)";
+							cxt.lineWidth = 1;
+						}
+						var rad = Math.atan((p2.y - p4.y)/(p4.x - p2.x));
+						drawArrows(cxt,p2,rad);
+					}					
+					cxt.beginPath();
+					//绘制3次贝塞尔曲线 
+					cxt.moveTo(p1.x,p1.y);  
+					cxt.bezierCurveTo(p3.x,p3.y,p4.x,p4.y,p2.x,p2.y);
+					cxt.stroke();	
+					cxt.restore();					
+				} 
+			}
+			var drawArrows = function(cxt,point,rad){
+				var size = [15,4];
+				var cosRad = Math.cos(rad);
+				var sinRad = Math.sin(rad);
+				var p1 = point;
+				var center = {x:p1.x + size[0]*cosRad,y:p1.y - size[0]*sinRad};
+				var p2 = {x:center.x + size[1]*sinRad,y:center.y + size[1]*cosRad};
+				var p3 = {x:center.x - size[1]*sinRad,y:center.y - size[1]*cosRad};
+				cxt.beginPath();
+				cxt.moveTo(p1.x,p1.y);
+				cxt.lineTo(p2.x,p2.y);
+				cxt.lineTo(p3.x,p3.y);
+				cxt.lineTo(p1.x,p1.y);
+				cxt.closePath();
+				cxt.fill();
+				cxt.stroke();				
+			}
+			var clear = function(){
+				var can = document.getElementById('connect');
+				var cxt = can.getContext('2d');  
+				cxt.save();
+				cxt.beginPath();
+				cxt.fillStyle = "rgba(255,255,255,1)";
+				cxt.fillRect(0,0,100,200);
+				cxt.closePath();
+				cxt.fill();
+				cxt.restore();
+			};
+			var selectOptin = function(event){
+				if(event.currentTarget != event.target){
+					var busDataSelect = dojo.byId('busData');
+					var modelDataFromSelect = dojo.byId('ModelDataFrom');
+					var modelDataToSelect = dojo.byId('ModelDataTo');
+					var button = dijit.byId("busConnectOperate");					
+					switch(parseInt(status)){
+						case 0:
+							if(event.currentTarget == busDataSelect){
+								clearSelect(false,true,true);
+								var index = event.target.value;
+								for(var i = 0;i < busConnect.busToModel.length;i++){
+									var data = busConnect.busToModel[i];
+									var busIndex = data.index.bus;
+									if(busIndex == index){
+										modelDataFromSelect.childNodes[data.index.model].selected = true;
+									}
+								}
+								for(var i = 0;i < busConnect.modelToBus.length;i++){
+									var data = busConnect.modelToBus[i];
+									var busIndex = data.index.bus;
+									if(busIndex == index){
+										modelDataToSelect.childNodes[data.index.model].selected = true;
+									}
+								}
+							}else{
+								clearSelect(true,false,false);
+								var index = event.target.value;
+								if(event.currentTarget == modelDataFromSelect){
+									clearSelect(false,false,true);
+									for(var i = 0;i < busConnect.busToModel.length;i++){
+										var data = busConnect.busToModel[i];
+										var modelIndex = data.index.model;
+										if(modelIndex == index){
+											busDataSelect.childNodes[data.index.bus].selected = true;
+										}
+									}
+								}else{
+									clearSelect(false,true,false);
+									for(var i = 0;i < busConnect.modelToBus.length;i++){
+										var data = busConnect.modelToBus[i];
+										var modelIndex = data.index.model;
+										if(modelIndex == index){
+											busDataSelect.childNodes[data.index.bus].selected = true;
+										}
+									}
+								}
+							}
+							break;
+						case 1:
+							var jump = false;
+							if(event.currentTarget == busDataSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == busDataSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										for(var j = 0;j < selectedTemp.length;j++){
+											if(selectedTemp[j].parentNode == modelDataFromSelect){
+												clearSelect(false,false,true);
+											}else if(selectedTemp[j].parentNode == modelDataToSelect){
+												clearSelect(false,true,false);
+											}
+										}
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									for(var j = 0;j < selectedTemp.length;j++){
+										if(selectedTemp[j].parentNode == modelDataFromSelect){
+											clearSelect(false,false,true);
+											break;
+										}else if(selectedTemp[j].parentNode == modelDataToSelect){
+											clearSelect(false,true,false);
+											break;
+										}
+									}
+								}	
+							}else if(event.currentTarget == modelDataFromSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == modelDataFromSelect || selectedTemp[i].parentNode == modelDataToSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										clearSelect(false,false,true);
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									clearSelect(false,false,true);
+								}
+							}else if(event.currentTarget == modelDataToSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == modelDataToSelect || selectedTemp[i].parentNode == modelDataFromSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										clearSelect(false,true,false);
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									clearSelect(false,true,false);
+								}
+							}
+							if(selectedTemp.length == 2){
+								button.setDisabled(false);
+							}else{
+								button.setDisabled(true);
+							}
+							break;
+						case 2:
+							var jump = false;
+							if(event.currentTarget == busDataSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == busDataSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										for(var j = 0;j < selectedTemp.length;j++){
+											if(selectedTemp[j].parentNode == modelDataFromSelect){
+												clearSelect(false,false,true);
+											}else if(selectedTemp[j].parentNode == modelDataToSelect){
+												clearSelect(false,true,false);
+											}
+										}
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									for(var j = 0;j < selectedTemp.length;j++){
+										if(selectedTemp[j].parentNode == modelDataFromSelect){
+											clearSelect(false,false,true);
+											break;
+										}else if(selectedTemp[j].parentNode == modelDataToSelect){
+											clearSelect(false,true,false);
+											break;
+										}
+									}
+								}	
+							}else if(event.currentTarget == modelDataFromSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == modelDataFromSelect || selectedTemp[i].parentNode == modelDataToSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										clearSelect(false,false,true);
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									clearSelect(false,false,true);
+								}
+							}else if(event.currentTarget == modelDataToSelect){
+								for(var i = 0;i < selectedTemp.length;i++){
+									if(selectedTemp[i].parentNode == modelDataToSelect || selectedTemp[i].parentNode == modelDataFromSelect){
+										selectedTemp[i] = event.target;
+										jump = true;
+										clearSelect(false,true,false);
+										break;
+									}
+								}
+								if(!jump){
+									selectedTemp.push(event.target);
+									clearSelect(false,true,false);
+								}
+							}
+							if(getLinkID() != null){
+								button.setDisabled(false);
+							}else{
+								button.setDisabled(true);
+							}
+							break;
+					
+					}									
+				}else{
+					clearSelect(true,true,true);
+				}
+			};
+			var getLinkID = function(){
+				var busDataSelect = dojo.byId('busData');
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				var temp = [];
+				var type = 0;
+				if(selectedTemp.length == 2){
+					if(selectedTemp[0].parentNode == modelDataToSelect){
+						type = 1;
+						temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+					}
+					if(selectedTemp[1].parentNode == modelDataToSelect){
+						type = 1;
+						temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+					}
+					if(selectedTemp[0].parentNode == busDataSelect){
+						temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+					}
+					if(selectedTemp[1].parentNode == busDataSelect){
+						temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+					}
+					if(type == 0){
+						if(selectedTemp[0].parentNode == modelDataFromSelect){
+							temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+						}
+						if(selectedTemp[1].parentNode == modelDataFromSelect){
+							temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+						}
+					}
+					if(type == 0){
+						for(var i = 0;i < busConnect.busToModel.length;i++){
+							var item =  busConnect.busToModel[i];
+							if(item.index.bus == temp[0].index && item.index.model == temp[1].index){
+								return [0,item.id,i];
+							}
+						}
+					}else{
+						for(var i = 0;i < busConnect.modelToBus.length;i++){
+							var item =  busConnect.modelToBus[i];
+							if(item.index.model == temp[0].index && item.index.bus == temp[1].index){
+								return [1,item.id,i];
+							}
+						}
+					}
+					return null;
+				}else{
+					return null;
+				}
+			}
+			var clearSelect = function(bus,modelDataFrom,modelDataTo){
+				var busDataSelect = dojo.byId('busData');
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				if(bus){
+					for(var j = 0;j < busDataSelect.childNodes.length;j++){
+						busDataSelect.childNodes[j].selected = false;
+					}
+				}
+				if(modelDataFrom){
+					for(var j = 0;j < modelDataFromSelect.childNodes.length;j++){
+						modelDataFromSelect.childNodes[j].selected = false;
+					}
+				}
+				if(modelDataTo){
+					for(var j = 0;j < modelDataToSelect.childNodes.length;j++){
+						modelDataToSelect.childNodes[j].selected = false;
+					}
+				}
+			};
+			var action = function(){
+				var busDataSelect = dojo.byId('busData');
+				var modelDataFromSelect = dojo.byId('ModelDataFrom');
+				var modelDataToSelect = dojo.byId('ModelDataTo');
+				var button = dijit.byId("busConnectOperate");
+				var temp = [];
+				var type = 0;/*0:busToModel, 1:modelToBus*/
+				switch(parseInt(status)){
+					case 0:
+						//retain
+						break;
+					case 1:
+						if(selectedTemp[0].parentNode == modelDataToSelect){
+							type = 1;
+							temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+						}
+						if(selectedTemp[1].parentNode == modelDataToSelect){
+							type = 1;
+							temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+						}
+						if(selectedTemp[0].parentNode == busDataSelect){
+							temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+						}
+						if(selectedTemp[1].parentNode == busDataSelect){
+							temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+						}
+						if(type == 0){
+							if(selectedTemp[0].parentNode == modelDataFromSelect){
+								temp.push({data:selectedTemp[0].label,index:parseInt(selectedTemp[0].value)});
+							}
+							if(selectedTemp[1].parentNode == modelDataFromSelect){
+								temp.push({data:selectedTemp[1].label,index:parseInt(selectedTemp[1].value)});
+							}
+						}
+						if(getLinkID() == null){
+							if(type == 0){
+								busConnect.busToModel.push({id:0,data:{bus:temp[0].data,model:temp[1].data},index:{bus:temp[0].index,model:temp[1].index}});
+							}else{
+								busConnect.modelToBus.push({id:0,data:{bus:temp[1].data,model:temp[0].data},index:{bus:temp[1].index,model:temp[0].index}});
+							}
+						}else{
+							alert("请勿建立重复的连接！");
+							return;
+						}						
+						selectedTemp = [];
+						button.setDisabled(true);
+						//clearSelect(true,true,true);
+						break;
+					case 2:
+						var deleteLink = getLinkID();
+						if(deleteLink[0] == 0){
+							busConnect.busToModel.splice(deleteLink[2],1);
+						}else{
+							busConnect.modelToBus.splice(deleteLink[2],1);
+						}
+						selectedTemp = [];
+						button.setDisabled(true);
+						break;
+				}
+			};
+			var changeStatus = function(event){
+				var button = dijit.byId("busConnectOperate");
+				switch(parseInt(event.target.value)){
+					case 0:
+						status = 0;						
+						button.setLabel("操作");
+						button.setDisabled(true);
+						selectedTemp = [];
+						clearSelect(true,true,true);
+						break;
+					case 1:
+						status = 1;
+						button.setLabel("增加");
+						button.setDisabled(true);
+						selectedTemp = [];
+						clearSelect(true,true,true);
+						break;
+					case 2:
+						status = 2;
+						button.setLabel("删除");
+						button.setDisabled(true);
+						selectedTemp = [];
+						clearSelect(true,true,true);
+						break;
+				}
+				
+			};
+			var checkUniqueness = function(temp){
+				
+			};
+			dojo.ready(function(){
+			var busDataSelect = dojo.byId('busData');
+			var modelDataFromSelect = dojo.byId('ModelDataFrom');
+			var modelDataToSelect = dojo.byId('ModelDataTo');
+			for(var i = 0;i < busData[0].data.length;i++){
+				var option = window.document.createElement('option');
+				option.innerHTML = busData[0].data[i].id;
+				option.value = i;
+				option.selected = true;
+				busDataSelect.appendChild(option);
+			}
+			for(var i = 0;i < modelData.from.length;i++){
+				var option = window.document.createElement('option');
+				option.innerHTML = modelData.from[i].id;
+				option.value = i;
+				option.selected = true;
+				modelDataFromSelect.appendChild(option);
+			}
+			for(var i = 0;i < modelData.to.length;i++){
+				var option = window.document.createElement('option');
+				option.innerHTML = modelData.to[i].id;
+				option.value = i;
+				option.selected = true;
+				modelDataToSelect.appendChild(option);
+			}
+			var busDataMultiSelect = new dijit.form.MultiSelect({ name: 'busData',style:"width:150px;height:200px;float:left;" }, busDataSelect);
+			busDataMultiSelect.startup();
+			var modelDataFromMultiSelect = new dijit.form.MultiSelect({ name: 'modelDataFrom',style:"width:150px;height:100px;float:left;" }, modelDataFromSelect);
+			modelDataFromMultiSelect.startup();
+			var modelDataToMultiSelect = new dijit.form.MultiSelect({ name: 'modelDataTo',style:"width:150px;height:100px;float:left;" }, modelDataToSelect);
+			modelDataToMultiSelect.startup();
+			dojo.connect(busDataMultiSelect,"onClick",selectOptin);
+			dojo.connect(modelDataFromMultiSelect,"onClick",selectOptin);
+			dojo.connect(modelDataToMultiSelect,"onClick",selectOptin);
+			var timer = setInterval(
+					function () {
+						clear();
+						drawBusConnect();
+						/*var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[14]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[15]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[1]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[15]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[5]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[17]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[20]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[12]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[3]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[17]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[6]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[18]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[14]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[2]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[10]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[8]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[0]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[16]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[14]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[24]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(0,dojo.byId('busData').childNodes[7]);
+						var model = calculateLinkPoint(1,dojo.byId('componentData').childNodes[13]);
+						
+						
+						var bus = calculateLinkPoint(1,dojo.byId('componentData').childNodes[5]);
+						var model = calculateLinkPoint(0,dojo.byId('busData').childNodes[14]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(1,dojo.byId('componentData').childNodes[13]);
+						var model = calculateLinkPoint(0,dojo.byId('busData').childNodes[18]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(1,dojo.byId('componentData').childNodes[0]);
+						var model = calculateLinkPoint(0,dojo.byId('busData').childNodes[25]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(1,dojo.byId('componentData').childNodes[14]);
+						var model = calculateLinkPoint(0,dojo.byId('busData').childNodes[0]);
+						draw(bus,model);
+						var bus = calculateLinkPoint(1,dojo.byId('componentData').childNodes[7]);
+						var model = calculateLinkPoint(0,dojo.byId('busData').childNodes[16]);
+						draw(bus,model);*/
+						return;
+				}, 25);	
+			});
+			
+        </script>
+		
+    </head>
+
+    <body class="tundra" text-align="center">
+		<div style="width:400px;height:50px;float:left;">
+			<div style="width:150px;height:50px;float:left;">
+				<span >Bus数据：</span></br>		
+			</div>
+			<div style="width:100px;height:50px;float:left;">
+				<div style="width:50px;height:50px;float:left;">
+					<input name="operateStatus" value="0" checked="true" dojoType="dijit.form.RadioButton" onClick="changeStatus">查看
+					<input name="operateStatus" value="1" dojoType="dijit.form.RadioButton" onClick="changeStatus">增加
+					<input name="operateStatus" value="2" dojoType="dijit.form.RadioButton" onClick="changeStatus">删除
+				</div>
+				<button id="busConnectOperate" style="float:left;margin-top:15px" data-dojo-props="disabled:'false'" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="操作" iconClass="dijitNoIcon" onClick="action()"></button>
+			</div>
+			<div style="width:150px;height:50px;float:left;">
+				<span >模块数据(上为流入源)：</span></br>
+			</div>
+		</div>
+		
+		<div style="width:400px;height:200px;float:left;">
+			<div style="width:150px;height:200px;float:left;">
+				<!--<span>Bus数据：</span></br>-->
+				<select id="busData"></select>
+			</div>
+			<canvas id="connect" width="100px" height="200px" style="float:left"></canvas>
+			<div style="width:150px;height:200px;float:left">
+				<!--<span>模块数据：</span></br>-->
+				<select id="ModelDataFrom"></select>
+				<select id="ModelDataTo"></select>
+			</div> 
+		</div>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html><head>
+<link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+<link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet" type="text/css"/>
+<meta charset="utf-8">
+<style type="text/css">
+	h3{
+		margin:10px;
+	}
+	label,input{
+	   display:block;
+	   float:left;
+	   margin-bottom:5px;
+	}
+	label{
+		text-align:right;
+		width:70px;
+		padding-right:20px;
+	}
+	br{
+		clear:left;
+	}
+	.grouping{
+		width:300px;
+		border:solid 1px rgb(230,230,230);
+		padding:5px;
+		margin:10px;
+	}
+</style>
+<script 
+	type="text/javascript" 
+	src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js" 		    djConfig="isDebug:true,parseOnLoad:true">
+</script>
+<script type="text/javascript">
+	dojo.require("dojo.parser");
+	//dojo.require("dijit.form.TextBox")
+	//dojo.require("dijit.form.ValidationTextBox")
+	dojo.require("dijit.form.NumberSpinner");
+</script>
+<title>dijit测试</title>
+</head>
+
+<body class="tundra">
+    <form>
+        <input dojoType="dijit.form.NumberSpinner" constraints="{min:0,max:10000}" value="1000">
+    </form>
+</body>
+</html>

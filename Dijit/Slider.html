@@ -1,0 +1,183 @@
+<html>
+<head>
+    <title>Register for Spam</title>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <style type="text/css">
+        .spamIcon{
+            background-image: url("/dojoStudy/resource/img/ball.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+    <script type="text/javascript">
+        dojo.require("dojo.parser");
+        dojo.require("dojo.data.ItemFileReadStore");
+        dojo.require("dijit.form.Form");
+        dojo.require("dijit.form.Textarea");
+        dojo.require("dijit.form.SimpleTextarea");
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit.form.ToggleButton");
+        dojo.require("dijit.form.CheckBox");
+        dojo.require("dijit.form.DropDownButton");
+        dojo.require("dijit.Menu");
+        dojo.require("dijit.form.ComboButton");
+        dojo.require("dijit.form.Slider");
+        dojo.require("dojo.number");
+    </script>
+</head>
+
+<body class="tundra">
+<div dojoType="dojo.data.ItemFileReadStore" url="/dojoStudy/resource/coffee.json" jsId="coffeeStore"></div>
+<form action="localhost" dojoType="dijit.form.Form">
+            <textarea dojoType="dijit.form.Textarea" style="width: 300px">
+                One fish, tow fish...
+            </textarea><br>
+            <textarea dojoType="dijit.form.SimpleTextarea" style="width: 300px">
+                One fish, tow fish...
+            </textarea><br>
+    <button dojoType="dijit.form.Button" type="submit" iconClass="spamIcon">
+        Sign Up!
+        <script type="dojo/method" event="onClick" args="evt">
+                    alert("You just messed up...but it's too late now! Mwahahaha");
+                </script>
+    </button><br>
+    <button dojoType="dijit.form.Button" type="reset" iconClass="spamIcon">Reset</button><br>
+    <button dojoType="dijit.form.ToggleButton">ToggleButton
+        <script type="dojo/method" event="onChange" args="newValue">
+                    console.log(newValue);
+                </script>
+    </button><br>
+    <div name="confirmation" dojoType="dijit.form.CheckBox">
+        <script type="dojo/method" event="onClick" args="evt">
+                    if(this.checked)
+                        dijit.byId("signup").setAttribute('disabled',false);
+                    else
+                        dijit.byId("signup").setAttribute('disabled',true);
+                </script>
+    </div>I understand that you intend to spam me.<br>
+    <button id="signup" disabled dojoType="dijit.form.Button" type="submit">
+        Sign Up!
+    </button><br>
+    <input name="spamFrequency" value="1 per day" dojoType="dijit.form.RadioButton">1 per day<br>
+    <input name="spamFrequency" value="2 per day" dojoType="dijit.form.RadioButton">2 per day<br>
+    <input name="spamFrequency1" value="3 per day" dojoType="dijit.form.RadioButton">3 per day<br>
+    <button dojoType="dijit.form.DropDownButton">
+        <span>Save...</span>
+        <div dojoType="dijit.Menu">
+            <div dojoType="dijit.MenuItem" label="Save">
+                <script type="dojo/method" event="onClick" args="evt">
+                            console.log("you clicked ",this.label);
+                        </script>
+            </div>
+            <div dojoType="dijit.MenuItem" label="Save as...">
+                <script type="dojo/method" event="onClick" args="evt">
+                            console.log("you clicked ",this.label);
+                        </script>
+            </div>
+            <div dojoType="dijit.MenuItem" label="Save to FTP...">
+                <script type="dojo/method" event="onClick" args="evt">
+                            console.log("you clicked ",this.label);
+                        </script>
+            </div>
+        </div>
+    </button><br>
+    <button dojoType="dijit.form.ComboButton">
+        <span>Save</span>
+        <script type="dojo/method" event="onClick" args="evt">
+                            console.log("you clicked ",this.label);
+                        </script>
+        <div dojoType="dijit.Menu">
+            <div dojoType="dijit.MenuItem" label="Save as...">
+                <script type="dojo/method" event="onClick" args="evt">
+                            console.log("you clicked ",this.label);
+                        </script>
+            </div>
+            <div dojoType="dijit.MenuItem" label="Save to FTP...">
+                <script type="dojo/method" event="onClick" args="evt">
+                            console.log("you clicked ",this.label);
+                        </script>
+            </div>
+        </div>
+    </button>
+    <div dojoType="dijit.form.HorizontalSlider" name="caffeine"
+         value="100"
+         maximum="175"
+         minimum="2"
+         style="margin: 5px;width:300px;height:20px;">
+        <script type="dojo/method" event="onChange" args="newValue">
+            console.log(newValue);
+        </script>
+    </div><br>
+    <div dojoType="dijit.form.HorizontalSlider" name="caffeine"
+         value="100"
+         maximum="175"
+         minimum="2"
+         showButtons="false"
+         style="margin: 5px;width:300px;height:20px;">
+        <script type="dojo/method" event="onChange" args="newValue">
+            console.log(dojo.number.format(newValue,{places:1,pattern:'#mg'}));
+        </script>
+        <ol dojoType="dijit.form.HorizontalRuleLabels" container="topDecoration"
+            style="height: 10px;font-size: 75%;color: red;" count="6"></ol>
+        <div dojoType="dijit.form.HorizontalRule" container="topDecoration"
+             count="6" style="height: 5px;"></div>
+    </div>
+    <div dojoType="dijit.form.HorizontalSlider" name="caffeine"
+         value="100"
+         maximum="175"
+         minimum="2"
+         showButtons="false"
+         style="margin: 5px;width:300px;height:20px;">
+        <script type="dojo/method" event="onChange" args="newValue">
+            console.log(dojo.number.format(newValue,{places:1,pattern:'#mg'}));
+        </script>
+        <ol dojoType="dijit.form.HorizontalRuleLabels" container="topDecoration"
+            style="height: 10px;font-size: 75%;color: red;" count="6"></ol>
+        <div dojoType="dijit.form.HorizontalRule" container="topDecoration"
+             count="6" style="height: 5px;"></div>
+
+        <div dojoType="dijit.form.HorizontalRule" container="bottomDecoration"
+             count="5" style="height: 5px;"></div>
+        <ol dojoType="dijit.form.HorizontalRuleLabels" container="bottomDecoration"
+                                                      style="height: 10px;font-size: 75%;color: red;" >
+        <li>green<br>tea</li>
+        <li>coffee</li>
+        <li>red<br>bull</li>
+    </ol>
+    </div><br>
+
+
+    <div dojoType="dijit.form.VerticalSlider" name="caffeine"
+         value="100"
+         maximum="175"
+         minimum="2"
+         showButtons="false"
+         style="margin: 5px;width:75px;height:300px;">
+        <script type="dojo/method" event="onChange" args="newValue">
+            console.log(dojo.number.format(newValue,{places:1,pattern:'#mg'}));
+        </script>
+        <ol dojoType="dijit.form.VerticalRuleLabels" container="leftDecoration"
+            style="height: 300px;width: 25px;font-size: 75%;color: red;" count="6"></ol>
+        <div dojoType="dijit.form.VerticalRule" container="leftDecoration"
+             count="6" style="height: 300px;width: 5px;"></div>
+
+        <div dojoType="dijit.form.VerticalRule" container="rightDecoration"
+             count="5" style="height: 300px;width: 5px;"></div>
+        <ol dojoType="dijit.form.VerticalRuleLabels" container="rightDecoration"
+            style="height: 300px;width: 25px;font-size: 75%;color: red;" >
+            <li>green&nbsp;tea</li>
+            <li>coffee</li>
+            <li>red&nbsp;bull</li>
+        </ol>
+    </div>
+</form>
+</body>
+</html>

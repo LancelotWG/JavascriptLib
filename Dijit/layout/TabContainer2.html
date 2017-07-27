@@ -1,0 +1,50 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.layout.ContentPane");
+        dojo.require("dijit.Declaration");
+        dojo.require("dijit.form.Button");
+        dojo.require("dijit.layout.TabContainer");
+        dojo.addOnLoad(function(){
+            var container = new dijit.layout.TabContainer(
+                    {
+                        tabPosition:"left-h",
+                        style:"width:200px;height:200px"
+                    },
+                    "stack"
+            );
+            var l1=new dijit.layout.ContentPane(
+                    {
+                        title:"tab1"
+                    }
+            );
+            l1.domNode.innerHTML="tab 1";
+            var l2=new dijit.layout.ContentPane(
+                    {
+                        title:"tab2"
+                    }
+            );
+            l2.domNode.innerHTML="tab 2";
+            container.addChild(l1);
+            container.addChild(l2);
+            container.startup();
+        });
+    </script>
+    <title>TabContainer</title>
+</head>
+
+<body class="tundra" >
+<div id="stack" >
+
+</div>
+</body>
+</html>

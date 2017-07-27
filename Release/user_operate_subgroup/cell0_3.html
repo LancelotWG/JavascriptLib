@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>cell0_3</title>
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+    <style type="text/css">
+        .hello_class{
+            color:#009900;
+            /*cursor: pointer;*/
+            cursor: crosshair;
+        }
+        .hello_class2{
+            color:red;
+            cursor: pointer;
+        }
+        .mouse_link{
+            cursor: crosshair;
+        }
+        .mouse_normal{
+            cursor: pointer;
+        }
+        .body{
+            height: 90px;
+            width: 80px;
+        }
+        .img{
+            width: 50px;
+            margin: 5px;
+        }
+        .main_body{
+            width: 60px;
+            height: 88px;
+            margin-right: 10px;
+            margin-left: 10px;
+            border: 1px solid black;
+        }
+        .name{
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        dojo.require("dijit.Declaration");
+        dojo.require("dojo.parser");
+        dojo.require("dojo.dnd.Moveable");
+        dojo.require("dojo.dnd.move");
+        dojo.addOnLoad(function(){
+
+        });
+        var bool = false;
+        var StartX;
+        var StartY;
+    </script>
+</head>
+
+<body id="main" style="height: 1000px;width: 1000px">
+<div
+        dojoType="dijit.Declaration"
+        widgetClass="dtdg.HelloWorld"
+        defaults="{
+        theme:'',
+        name:'',
+        img_src:'',
+        coords:{},
+        input_coords:{},
+        output_coords:{},
+        input_id:'',
+        output_id:'',
+        }">
+    <div data-dojo-type="dojo.dnd.Moveable" class="body mouse_normal">
+            <div class="mouse_link" style="position: absolute; left: 0px; top: 40px;
+            height: 10px;width: 10px;" dojoAttachEvent="onmouseup:InputOnMouseUp">
+                <canvas height="10px" width="10px" style="background-color:green;"></canvas>
+            </div>
+            <div class="mouse_link" style="position: absolute; right: 0px; top: 40px;
+            height: 10px;width: 10px;" >
+                <canvas height="10px" width="10px" style="background-color:red;"></canvas>
+            </div>
+
+            <div class="main_body">
+                <img src=${img_src} class="img">
+                <div class="name">
+                    <span>${name}</span>
+                </div>
+            </div>
+
+    </div>
+    <script type="dojo/method" event="InputOnMouseUp" args="evt">
+          bool = true;
+          evt=evt||window.event;
+          StartX=evt.clientX;
+          StartY=evt.clientY;
+          console.log("applied hello_class...");
+          console.log(evt);
+    </script>
+</div>
+<div dojoType="dtdg.HelloWorld"
+     name="lwg" img_src="http://localhost/dojoStudy/resource/img/ball.png" >
+</div>
+<canvas id="line" height="1000px" width="1000px" style="z-index: -1"></canvas>
+    <script type="text/javascript">
+        document.getElementById("main").onmousemove=function(evt){
+            if(bool){
+                console.log(evt);
+                evt=evt||window.event;
+                var x=evt.clientX;
+                var y=evt.clientY;
+                var canvas = document.getElementById("line");
+                var context = canvas.getContext('2d');
+                context.beginPath();
+                context.fillStyle = "#ffffff";
+                context.fillRect(0,0,1000,1000);
+                context.closePath();
+                context.fill();
+                context.beginPath();
+                context.strokeStyle = "#000000";
+                context.lineWidth = 2;
+                context.moveTo(StartX, StartY);
+                context.lineTo(x, y);
+                context.closePath();
+                context.stroke();
+                context.restore()
+            }
+        }
+    </script>
+</body>
+</html>

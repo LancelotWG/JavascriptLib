@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/claro/claro.css"/>
+        <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+        <link rel="stylesheet" type="text/css" href="http://localhost/dojoStudy/js/dojo/dojo/tests/dnd/dndDefault.css"/>
+        <meta charset="utf-8">
+        <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dijit.Declaration");
+            dojo.require("dijit.layout.ContentPane");
+            dojo.require("dijit.layout.BorderContainer");
+            dojo.require("dijit.layout.AccordionPane");
+            dojo.require("dijit.layout.AccordionContainer");
+            dojo.require("dijit.layout.TabContainer");
+            dojo.require("dojox.layout.ToggleSplitter");
+            dojo.require("dojo.dnd.Source");
+            dojo.require("dojo.dnd.Moveable");
+            dojo.require("dojo.dnd.move");
+
+            dojo.addOnLoad(function(){
+
+            });
+        </script>
+        <title>Welcome to Workflow</title>
+    </head>
+
+    <body class="claro" style="text-align: center; height:1000px; " >
+        <div id="head" dojoType="dijit.layout.ContentPane" href="/dojoStudy/Release/user_operate_subgroup/head.html"
+             style="background-color: red;height: 100px;"  >
+             Noting special going on here!
+            <script type="dojo/method" event="onLoad">
+                dojo.query("[dojoType]",this.domNode).forEach(function(x) {
+                    var _resource = dojo.attr(x, "dojoType");
+                    dojo.require(_resource);
+                    var _interval = setInterval(function () {
+                        if (eval(_resource)) {
+                            clearInterval(_interval);
+                            dojo.parser.parse(x.parentNode);
+                        }
+                    },100);
+                });
+            </script>
+        </div>
+        <div id="center" dojoType="dijit.layout.BorderContainer" design="sidebar" liveSplitters="false" persist="true"
+             style="height: 900px;width: 100%;background: linear-gradient(red, blue);/*border: solid 1px red;*/">
+            <div dojoType="dijit.layout.TabContainer"  region="center"
+                 style="/*background-color: red*/" splitter="true" >
+                <canvas data-dojo-type="dojo.dnd.Moveable" style="background-color: #06c; position: absolute;top: 100px;left: 100px;height: 100px;width: 100px; z-index:20;"  ></canvas>                <div dojoType="dijit.layout.ContentPane" title="one" >
+                    <div dojoType="dojo.dnd.Source" class="container" id="source1" style="width: 80px; margin-left: auto;
+                    margin-right: auto;border: 0px;">
+                        <div class="dojoDndItem">
+                            <img src="/dojoStudy/resource/img/ball.png" height="50px" >
+                        </div>
+                        <div class="dojoDndItem">
+                            <img src="/dojoStudy/resource/img/ball.png" height="50px" >
+                        </div>
+                        <div class="dojoDndItem">
+                            <img src="/dojoStudy/resource/img/ball.png" height="50px" >
+                        </div>
+                        <div class="dojoDndItem">
+                            <img src="/dojoStudy/resource/img/ball.png" height="50px" >
+                        </div>
+                    </div>
+                    <div dojoType="dojo.dnd.Source" class="container" id="source2" style="width: 80px; margin-left: auto;
+                    margin-right: auto; border: 0px;">
+                        <div class="dojoDndItem">
+                            <img src="/dojoStudy/resource/img/ball.png" height="50px" >
+                        </div>
+                        <div class="dojoDndItem">
+                            <img src="/dojoStudy/resource/img/ball.png" height="50px" >
+                        </div>
+                        <div class="dojoDndItem">
+                            <img src="/dojoStudy/resource/img/ball.png" height="50px" >
+                        </div>
+                        <div class="dojoDndItem">
+                            <img src="/dojoStudy/resource/img/ball.png" height="50px" >
+                        </div>
+                    </div>
+
+                </div>
+                <div dojoType="dijit.layout.ContentPane" title="tow">
+                    Tow fish...
+                </div>
+                <div dojoType="dijit.layout.ContentPane" title="red" closable="true">
+                    Red fish...
+                    <script type="dojo/method" event="onClose" args="evt">
+                        console.log("Closing",this.title);
+                        return true;
+                    </script>
+                </div>
+                <div dojoType="dijit.layout.ContentPane" title="blue">
+                    Blue fish...
+                </div>
+                <!--<script type="dojo/method" event="onLoad">
+                    dojo.query("[dojoType]",this.domNode).forEach(function(x) {
+                          var _resource = dojo.attr(x, "dojoType");
+                          dojo.require(_resource);
+                          var _interval = setInterval(function () {
+                               if (eval(_resource)) {
+                                   clearInterval(_interval);
+                                   dojo.parser.parse(x.parentNode);
+                               }
+                          },100);
+                    });
+                 </script>-->
+            </div>
+            <div id="left" dojoType="dijit.layout.AccordionContainer" title="blue"  region="left"
+                 style="/*background-color: red*/width: 100px;" splitter="true" >
+                <div dojoType="dijit.layout.AccordionPane" title="one">
+                    <div dojoType="dojo.dnd.Source" class="container" id="source3">
+                        <div class="dojoDndItem">foo</div>
+                        <div class="dojoDndItem">bar</div>
+                        <div class="dojoDndItem">baz</div>
+                        <div class="dojoDndItem">quux</div>
+                    </div>
+                    <div dojoType="dojo.dnd.Source" class="container" id="source4">
+                        <div class="dojoDndItem">FOO</div>
+                        <div class="dojoDndItem">BAR</div>
+                        <div class="dojoDndItem">BAZ</div>
+                        <div class="dojoDndItem">QUUX</div>
+                    </div>
+                </div>
+                <div dojoType="dijit.layout.AccordionPane" title="tow">
+                    <p>Tow fish...</p>
+                </div>
+                <div dojoType="dijit.layout.AccordionPane" title="red" closable="true">
+                    <p>Red fish...</p>
+                    <script type="dojo/method" event="onClose" args="evt">
+                        console.log("Closing",this.title);
+                        return true;
+                    </script>
+                </div>
+                <!--<script type="dojo/method" event="onLoad">
+                      dojo.query("[dojoType]",this.domNode).forEach(function(x) {
+                           var _resource = dojo.attr(x, "dojoType");
+                           dojo.require(_resource);
+                           var _interval = setInterval(function () {
+                               if (eval(_resource)) {
+                                    clearInterval(_interval);
+                                    dojo.parser.parse(x.parentNode);
+                               }
+                           },100);
+                      });
+                </script>-->
+            </div>
+            <div id="bottom" dojoType="dijit.layout.TabContainer"  data-dojo-props="tabPosition:'bottom', selectedchild:'btab1',
+            region:'bottom',splitter:true, tabStrip:true" style="/*background-color: red*/height: 100px;;" >
+                <div dojoType="dijit.layout.ContentPane" title="one">
+                    One fish...
+                </div>
+                <div dojoType="dijit.layout.ContentPane" title="tow">
+                    Tow fish...
+                </div>
+                <div dojoType="dijit.layout.ContentPane" title="red" closable="true">
+                    Red fish...
+                    <script type="dojo/method" event="onClose" args="evt">
+                        console.log("Closing",this.title);
+                        return true;
+                    </script>
+                </div>
+                <div dojoType="dijit.layout.ContentPane" title="blue">
+                Blue fish...
+                </div>
+                <!--<script type="dojo/method" event="onLoad">
+                      dojo.query("[dojoType]",this.domNode).forEach(function(x) {
+                           var _resource = dojo.attr(x, "dojoType");
+                           dojo.require(_resource);
+                           var _interval = setInterval(function () {
+                                if (eval(_resource)) {
+                                    clearInterval(_interval);
+                                    dojo.parser.parse(x.parentNode);
+                                }
+                           },100);
+                      });
+                </script>-->
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Hello World, Take 4</title>
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+    <style type="text/css">
+        .hello_class{
+            color:#009900;
+            cursor: pointer;
+        }
+    </style>
+    <script type="text/javascript">
+        dojo.require("dijit.Declaration");
+        dojo.require("dojo.parser");
+    </script>
+</head>
+
+<body>
+<div
+        dojoType="dijit.Declaration"
+        widgetClass="dtdg.HelloWorld"
+        defaults="{greeting:'Hello World!'}">
+            <span
+                    dojoAttachEvent="onmouseover:onMouseOver,onmouseout:onMouseOut">
+                ${greeting}
+            </span>
+    <script type="dojo/method" event="onMouseOver" args="evt">
+                dojo.addClass(this.domNode,'hello_class');
+                console.log("applied hello_class...");
+                console.log(evt);
+            </script>
+    <script type="dojo/method" event="onMouseOut" args="evt">
+                dojo.removeClass(this.domNode,'hello_class');
+                console.log("remove hello_class...");
+                console.log(evt);
+            </script>
+</div>
+<div dojoType="dtdg.HelloWorld"></div>
+</body>
+</html>

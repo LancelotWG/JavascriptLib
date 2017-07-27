@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>cell0_7</title>
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true,modulePaths:{dlwg:'/dojoStudy/js/dlwg'}">
+    </script>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dlwg/themes/unit/unit.css" type="text/css"/>
+</head>
+    <script type="text/javascript">
+        dojo.require("dojo.parser");
+        dojo.require("dlwg.unit");
+        dojo.require("dojo.dnd.Moveable");
+        dojo.require("dojo.dnd.move");
+        dojo.addOnLoad(function(){
+            var main = dojo.byId("main");
+            var unit = new dlwg.unit({name : "first", own_id : 1,img_src :"http://localhost/dojoStudy/resource/img/ball.png",size : {h:90,w:80},
+                location : {x:100,y:100},l_type : 0},main);
+            var m1 = new dojo.dnd.Moveable("main",{handle:"dragHandle"});
+        });
+    </script>
+<body>
+<div id="main" >
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<head>
+	<title>Register for Spam</title>
+			<link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+			<link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+			<script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+			<script type="text/javascript" src="http://localhost/dojoStudy/js/yui/yahoo/yahoo-min.js"></script>
+			<script
+					type="text/javascript"
+					src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+					djConfig="isDebug:true,parseOnLoad:true">
+			</script>
+	<script type="text/javascript" src="http://localhost/dojoStudy/js/ace/src/ace.js"></script>
+	<script type="text/javascript" src="http://localhost/dojoStudy/js/ace/src/ext-language_tools.js"></script>
+	<script type="text/javascript" src="http://localhost/dojoStudy/js/ace/src/ext-old_ie.js"></script>
+	<script type="text/javascript" src="http://localhost/dojoStudy/js/ace/src/theme-monokai.js"></script>
+	<script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dijit.form.Button");
+			var editor;
+			var apply = function(){
+				var code = editor.getValue();
+				console.log(code);
+			};
+			var abolish = function(){
+				
+			}
+			dojo.ready(function(){
+				require("ace/ext/old_ie");
+				ace.require("ace/ext/language_tools");
+				editor = ace.edit("CompileEditor");
+				editor.$blockScrolling = Infinity;
+				editor.setFontSize(16);
+				editor.session.setMode("ace/mode/c_cpp");
+				editor.setOptions({
+					enableBasicAutocompletion: true,
+					enableSnippets: true,
+					enableLiveAutocompletion: true
+				});
+				editor.setTheme("ace/theme/monokai");
+			});
+	</script>
+</head>
+<body class="tundra">
+<div id="CompileEditorDialog" style="width:750px;height:560px">
+<div style="margin-left:20px;margin-top:10px;">代码编辑：</div>
+<div id="CompileEditor" style="width:700px;height:500px;margin-right:auto;margin-left:auto;" >
+/**
+ * Created on: 2016年09月16日 10:52:56
+ * Author: Guest
+ * Copyright (c) 2016, tool.usta.wiki , All Rights Reserved.
+ */
+#include &lt;stdio.h&gt;
+
+int main()
+{
+   /* 我的第一个 C 程序 */
+   printf(&quot;Hello, World! \n&quot;);
+   return 0;
+}
+</div>
+<div style="width:750px;height:25px;margin-top:8px;">
+	<button style="float:right;margin-right:20px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="取消" iconClass="dijitNoIcon" onClick="abolish"></button>
+	<button style="float:right;margin-right:15px;" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="应用" iconClass="dijitNoIcon" onClick="apply"></button>
+</div>
+</div>
+</body>

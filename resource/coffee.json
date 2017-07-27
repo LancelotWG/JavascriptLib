@@ -1,0 +1,14 @@
+{
+  "identifier":"name",
+  "label":"name",
+  "items":[
+    {"name":"Light Cinnamon","description":"Very light brown, dry, tastes like toasted grain with distinct sour tones, baked, bready"},
+    {"name":"Cinnamon2","description":"Light brown and dry, 2tastes like toasted grain with distinct sour tones, baked, bready"},
+    {"name":"Cinnamon3","description":"Light brown and dry, 3tastes like toasted grain with distinct sour tones, baked, bready"},
+    {"name":"Cinnamon4","description":"Light brown and dry, 4tastes like toasted grain with distinct sour tones, baked, bready"},
+    {"name":"Cinnamon5","description":"Light brown and dry, 5tastes like toasted grain with distinct sour tones, baked, bready"},
+    {"name":"Cinnamon6","description":"Light brown and dry, 6tastes like toasted grain with distinct sour tones, baked, bready"},
+    {"name":"Cinnamon7","description":"Light brown and dry, 7tastes like toasted grain with distinct sour tones, baked, bready"},
+    {"name":"Cinnamon8","description":"Light brown and dry, 8tastes like toasted grain with distinct sour tones, baked, bready"}
+  ]
+}

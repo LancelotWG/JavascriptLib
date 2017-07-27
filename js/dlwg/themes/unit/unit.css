@@ -1,0 +1,9 @@
+.mouse_link{
+    cursor: crosshair;
+}
+.mouse_normal{
+    cursor: pointer;
+}
+.name{
+    text-align: center;
+}

@@ -1,0 +1,7 @@
+div.hello_class{
+    color: #009900;
+}
+span.hello_class{
+    color: #0000aa;
+    cursor: pointer;
+}

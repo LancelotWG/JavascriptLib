@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Hello World, Take 4</title>
+        <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+        <style type="text/css">
+            .hello_class{
+                color:#009900;
+                cursor: pointer;
+            }
+            .hello_class2{
+                color:red;
+                cursor: pointer;
+            }
+        </style>
+        <script type="text/javascript">
+            dojo.require("dijit.Declaration");
+            dojo.require("dojo.parser");
+        </script>
+    </head>
+
+    <body>
+        <div
+                dojoType="dijit.Declaration"
+                widgetClass="dtdg.HelloWorld"
+                defaults="{greeting:'Hello World!',theme:'',theme2:''}">
+            <span id="my_1"
+                  dojoAttachEvent="onmouseover:onMouseOver,onmouseout:onMouseOut">
+                ${greeting}
+            </span><br/>
+            <span id="my_2"
+                    dojoAttachEvent="onmouseover:onMouseOver2,onmouseout:onMouseOut2">
+                ${greeting}
+            </span>
+            <script type="dojo/method" event="onMouseOver" args="evt">
+                dojo.addClass(document.getElementById("my_1") ,this.theme);
+                console.log("applied hello_class...");
+                console.log(evt);
+            </script>
+            <script type="dojo/method" event="onMouseOut" args="evt">
+                dojo.removeClass(document.getElementById("my_1"),this.theme);
+                console.log("remove hello_class...");
+                console.log(evt);
+            </script>
+            <script type="dojo/method" event="onMouseOver2" args="evt">
+                dojo.addClass(document.getElementById("my_2"),this.theme2);
+                console.log("applied hello_class...");
+                console.log(evt);
+            </script>
+            <script type="dojo/method" event="onMouseOut2" args="evt">
+                dojo.removeClass(document.getElementById("my_2"),this.theme2);
+                console.log("remove hello_class...");
+                console.log(evt);
+            </script>
+        </div>
+        <div dojoType="dtdg.HelloWorld" greeting="jfkdghjfgjkh" theme="hello_class" theme2="hello_class2"></div>
+    </body>
+</html>

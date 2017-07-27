@@ -1,0 +1,63 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.layout.ContentPane");
+        dojo.require("dijit.Declaration");
+        dojo.require("dijit.layout.BorderContainer");
+        dojo.addOnLoad(function(){
+            var bc=new dijit.layout.BorderContainer(
+                    {
+                        design:"headline",
+                        style:"height: 1000px;width: 1000px;border: solid 3px;"
+                    },
+                    "bc"
+            );
+            var top = new dijit.layout.ContentPane(
+                    {
+                        style:"background-color: blue;height: 100px;" ,
+                        splitter:"true" ,
+                        minSize:10 ,
+                        maxSize:100,
+                        region:"top"
+                    },
+                    document.createElement("div")
+            );
+            var bottom = new dijit.layout.ContentPane(
+                    {
+                        style:"background-color: red;height: 100px;" ,
+                        splitter:"true" ,
+                        minSize:10 ,
+                        maxSize:100,
+                        region:"bottom"
+                    },
+                    document.createElement("div")
+            );
+            var center = new dijit.layout.ContentPane(
+                    {
+                        region:"center",
+
+                    },
+                    document.createElement("div")
+            );
+            bc.startup();
+            bc.addChild(top);
+            bc.addChild(bottom);
+            bc.addChild(center);
+        });
+    </script>
+    <title>BorderContainer</title>
+</head>
+
+<body class="tundra" >
+<div id="bc"></div>
+</body>
+</html>

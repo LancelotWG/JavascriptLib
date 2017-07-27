@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Register for Spam</title>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+			dojo.require("dojo.dom");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.MultiSelect");
+			dojo.ready(function(){
+			var OSVersionMutiSelect = dojo.byId('OSVersionMutiSelect');
+			var n = 0;
+			for(var i = 0;i < 10;i++){
+				var c = window.document.createElement('option');
+				c.innerHTML = i;
+				c.value = n++;
+				c.selected = true;
+				OSVersionMutiSelect.appendChild(c);
+			}
+			var myMultiSelect = new dijit.form.MultiSelect({ name: 'mutil',style:"width:180px;height:150px;float:left;margin:10px;" }, OSVersionMutiSelect);
+			myMultiSelect.startup();
+			});
+			var OSVersionApply = function(){
+				alert(dijit.byId('OSVersionMutiSelect').get('value'));
+			};
+			var OSVersionAbolish = function(){
+				alert(dijit.byId('OSVersionMutiSelect').get('value'));
+			};
+        </script>
+    </head>
+
+    <body class="tundra" >
+		<div style="width:260px;height:180px;">
+			<span>OS配置文件版本：</span></br>
+			<select id="OSVersionMutiSelect" ></select>
+			<button style="margin-top:50px" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="应用" iconClass="dijitNoIcon" onClick="OSVersionApply"></button>
+			<button style="margin-top:10px" data-dojo-type="dijit.form.Button" intermediateChanges="false" label="取消" iconClass="dijitNoIcon" onClick="OSVersionAbolish"></button>  
+		</div>  
+    </body>
+</html>

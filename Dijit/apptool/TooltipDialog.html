@@ -1,0 +1,38 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <style type="text/css">
+        .spamIcon{
+            background-image: url("/dojoStudy/resource/img/ball.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.TooltipDialog");
+        dojo.require("dijit.form.DropDownButton");
+        dojo.require("dijit.form.TextBox");
+    </script>
+    <title>TooltipDialog</title>
+</head>
+
+<body class="tundra" >
+<div id="stack" dojoType="dijit.form.DropDownButton" iconClass="spamIcon" showLabel="false">
+    One<span id="one"> fish</span>, tow <span id="two">fish</span>
+    <div dojoType="dijit.TooltipDialog" >
+        A limbless cold_blooded vertebrate...<img width="50px" height="50px" src="/dojoStudy/resource/img/ball.png"/>
+        <div dojoType="dijit.form.TextBox"></div>
+    </div>
+</div>
+</body>
+</html>

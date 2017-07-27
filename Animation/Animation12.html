@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Animation Station</title>
+        <style type="text/css">
+            @import "http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css";
+            .box{
+                width: 200px;
+                height: 200px;
+                margin: 5px;
+                text-align: center;
+				background:blue;
+            }
+        </style>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.fx");
+            dojo.require("dojo.dnd.move");
+            dojo.addOnLoad(function() {
+                var lwg = new dojo.dnd.Moveable(dojo.byId("ball"));
+                //var box = dojo.byId("box");
+                var coords;
+                dojo.subscribe("/dnd/move/start",function(evt){
+                    coords = dojo.coords(evt.node) ;
+                });
+                dojo.subscribe("/dnd/move/stop",function(evt){
+                    dojo.fx.slideTo({
+                        node:evt.node,
+                        top:coords.t,
+                        left:coords.l,
+                        duration:1200,
+                        easing:function(x){return Math.pow(x,5);}
+                    }).play();
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <img src="http://localhost/dojoStudy/resource/img/ball.png" style="position: absolute;left: 300px;top:300px;width: 80px;" id="ball">
+    </body>
+</html>

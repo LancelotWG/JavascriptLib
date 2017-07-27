@@ -1,0 +1,42 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.layout.ContentPane");
+        dojo.require("dijit.Declaration");
+    </script>
+    <title>ContentPane</title>
+</head>
+
+<body class="tundra">
+    <div dojoType="dijit.layout.ContentPane" id="u">
+        Noting special going on here!
+    </div>
+    <div dojoType="dijit.layout.ContentPane" href="/dojoStudy/Dijit/Hello World, Take 5.html" id="f">
+        Noting special going on here!
+    </div>
+    <div dojoType="dijit.layout.ContentPane" href="/dojoStudy/Dijit/Slider.html" parseOnLoad="false" id="p">
+        Noting special going on here!
+        <script type="dojo/method" event="onLoad">
+            dojo.query("[dojoType]",this.domNode).forEach(function(x) {
+                var _resource = dojo.attr(x, "dojoType");
+                dojo.require(_resource);
+                var _interval = setInterval(function () {
+                    if (eval(_resource)) {
+                        clearInterval(_interval);
+                        dojo.parser.parse(x.parentNode);
+                    }
+                }, 100);
+            });
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Source</title>
+    <link
+            rel="stylesheet" type="text/css"
+            href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link
+            rel="stylesheet" type="text/css"
+            href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css"/>
+    <link
+            rel="stylesheet" type="text/css"
+            href="http://localhost/dojoStudy/js/dojo/dojo/tests/dnd/dndDefault.css"/>
+    <script
+            type="text/javascript"
+            djConfig="parseOnLoad:true"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.dnd.Source");
+		//dojo.require("dojo.dnd.Target");
+        dojo.require("dojo.parser");
+		dojo.addOnLoad(function(){
+            dojo.subscribe("/dnd/source/over",function(source){
+                console.log("/dnd/source/over",source);
+            });
+            dojo.subscribe("/dnd/start",function(source,nodes,copy){
+                console.log("/dnd/start",source,nodes,copy);
+            });
+            dojo.subscribe("/dnd/drop",function(source,nodes,copy){
+                console.log("/dnd/drop",source,nodes,copy);
+            });
+            dojo.subscribe("/dnd/cancel",function(){
+                console.log("/dnd/source/over");
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div dojoType="dojo.dnd.Source" class="container" id="source1">
+        <div class="dojoDndItem">foo</div>
+        <div class="dojoDndItem">bar</div>
+        <div class="dojoDndItem">baz</div>
+        <div class="dojoDndItem">quux</div>
+    </div>
+    <div dojoType="dojo.dnd.Source" class="container" id="source2">
+        <div class="dojoDndItem">FOO</div>
+        <div class="dojoDndItem">BAR</div>
+        <div class="dojoDndItem">BAZ</div>
+        <div class="dojoDndItem">QUUX</div>
+    </div>
+
+</body>
+</html>

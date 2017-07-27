@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Register for Spam</title>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+        <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dojo.data.ItemFileReadStore");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.Textarea");
+            dojo.require("dijit.form.SimpleTextarea");
+        </script>
+    </head>
+
+    <body class="tundra">
+        <div dojoType="dojo.data.ItemFileReadStore" url="/dojoStudy/resource/coffee.json" jsId="coffeeStore"></div>
+        <form action="localhost" dojoType="dijit.form.Form">
+            <textarea dojoType="dijit.form.Textarea" style="width: 300px">
+                One fish, tow fish...
+            </textarea>
+            <textarea dojoType="dijit.form.SimpleTextarea" style="width: 300px">
+                One fish, tow fish...
+            </textarea>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <title>Register for Spam</title>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+        <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css" type="text/css"/>
+        <script
+                type="text/javascript"
+                src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+                djConfig="isDebug:true,parseOnLoad:true">
+        </script>
+        <script type="text/javascript">
+            dojo.require("dojo.parser");
+            dojo.require("dijit.form.ValidationTextBox");
+            dojo.require("dijit.form.DateTextBox");
+            dojo.require("dijit.form.TimeTextBox");
+            dojo.require("dijit.form.NumberTextBox");
+            dojo.require("dijit.form.NumberSpinner");
+            dojo.require("dijit.form.CurrencyTextBox");
+            dojo.require("dijit.form.ComboBox");
+            dojo.require("dojo.data.ItemFileReadStore");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.FilteringSelect");
+            dojo.require("dijit.form.MultiSelect");
+        </script>
+    </head>
+
+    <body class="tundra">
+        <p>Just Use form below to sign-up for our great offers:</p>
+        <form id="registration_form"
+              method="post"
+              onsubmit="javascript:return validate()"
+              action="">
+            First Name: <input dojoType="dijit.form.ValidationTextBox"
+                               propercase=true trim=true required=true
+                               invalidMessage="Required." name="first"></dr>
+            Last Name: <input dojoType="dijit.form.ValidationTextBox"
+                              propercase=true trim=true required=true
+                              invalidMessage="Required." name="last"></dr>
+            Your Email: <input dojoType="dijit.form.ValidationTextBox"
+                               promptMessage="Basically, we want to sell info to a 3rd party."
+                               regExp="[a-z0-9._%+-]+@[a-z0-9-]+\.[a-z]{2,4}" required=true
+                               name="email"></dr>
+            <button type="submit">Sign Up!</button>
+            <button type="reset">Reset</button><br>
+            Best Day to call:
+            <input dojoType="dijit.form.DateTextBox"><br>
+            Best Time to call:
+            <input dojoType="dijit.form.TimeTextBox"><br>
+            Number text:
+            <input dojoType="dijit.form.NumberTextBox" constraints="{pattern:'#.##%'}"><br>
+            Number Spinner:
+            <input dojoType="dijit.form.NumberSpinner" smallDelta="2" largeDelta="4" constraints="{min:100,max:120}"
+            value="100"><br>
+            Currency Text Box:
+            <input dojoType="dijit.form.CurrencyTextBox" constraints="{min:1,max:100,fractional:true}" currency="USD"><br>
+            Combo Box:
+            <select name = "coffee" dojoType="dijit.form.ComboBox" autoComplete="true">
+                <option>Verona</option>
+                <option>French Roast</option>
+                <option>Breakfast Blend</option>
+                <option selected>Sumatra</option>
+                <script type="dojo/method" event="onChange" args="newValue">
+				    console.log("value changed to ",newValue);
+			    </script>
+            </select>
+
+        </form>
+        <div dojoType="dojo.data.ItemFileReadStore" url="/dojoStudy/resource/coffee.json" jsId="coffeeStore"></div>
+        <form action="localhost" dojoType="dijit.form.Form">
+            <select name = "coffee" dojoType="dijit.form.ComboBox" autoComplete="true"
+            store="coffeeStore" searchAttr="name">
+                <script type="dojo/method" event="onChange" args="newValue">
+                    console.log("value changed to ",newValue);
+                    var f = function(item){
+                        console.log("New description is ",coffeeStore.getValue(item,"description"));
+                    };
+                    coffeeStore.fetchItemByIdentity(
+                        {identity:newValue,onItem:f}
+                        );
+                </script>
+            </select><br>
+            <select name = "coffee" dojoType="dijit.form.FilteringSelect" autoComplete="true">
+                <option>Verona</option>
+                <option>French Roast</option>
+                <option>Breakfast Blend</option>
+                <option selected>Sumatra</option>
+                <script type="dojo/method" event="onChange" args="newValue">
+				    console.log("value changed to ",newValue);
+			    </script>
+            </select>
+            <select name = "coffee" dojoType="dijit.form.MultiSelect" autoComplete="true" multiple="true"
+            style="height: 100px; width: 100px; border: 3px solid black;">
+                <option value="TN" selected="true">Verona</option>
+                <option value="VA">French Roast</option>
+                <option value="WV">Breakfast Blend</option>
+                <option value="OH">Sumatra</option>
+                <script type="dojo/method" event="onChange" args="newValue">
+				    console.log("value changed to ",newValue);
+			    </script>
+            </select>
+        </form>
+    </body>
+</html>

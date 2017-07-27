@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>cell0_6</title>
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" type="text/css"/>
+    <style type="text/css">
+        .mouse_link{
+            cursor: crosshair;
+        }
+        .mouse_normal{
+            cursor: pointer;
+        }
+        .body{
+            height: 90px;
+            width: 80px;
+        }
+        .img{
+            width: 50px;
+            margin: 5px;
+        }
+        .main_body{
+            width: 60px;
+            height: 88px;
+            margin-right: 10px;
+            margin-left: 10px;
+            border: 1px solid black;
+        }
+        .name{
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+        dojo.require("dijit.Declaration");
+        dojo.require("dojo.parser");
+        dojo.require("dojo.dnd.Moveable");
+        dojo.require("dojo.dnd.move");
+        dojo.addOnLoad(function(){
+            var m1 = new dojo.dnd.Moveable("move1",{handle:"dragHandle"});
+            dojo.connect(m1,"onMoving",function(mover,shift){
+                for(x in Lines){
+                    if(Lines[x].Start.id=="1"){
+                        Lines[x].Start.x=shift.l+80;
+                        Lines[x].Start.y=shift.t+45;
+                    }
+                    if(Lines[x].End.id=="1"){
+                        Lines[x].End.x=shift.l;
+                        Lines[x].End.y=shift.t+45;
+                    }
+                }
+            });
+            var m2 = new dojo.dnd.Moveable("move2",{handle:"dragHandle"});
+            dojo.connect(m2,"onMoving",function(mover,shift){
+                for(x in Lines){
+                    if(Lines[x].Start.id=="2"){
+                        Lines[x].Start.x=shift.l+80;
+                        Lines[x].Start.y=shift.t+45;
+                    }
+                    if(Lines[x].End.id=="2"){
+                        Lines[x].End.x=shift.l;
+                        Lines[x].End.y=shift.t+45;
+                    }
+                }
+            });
+            var m3 = new dojo.dnd.Moveable("move3",{handle:"dragHandle"});
+            dojo.connect(m3,"onMoving",function(mover,shift){
+                for(x in Lines){
+                    if(Lines[x].Start.id=="3"){
+                        Lines[x].Start.x=shift.l+80;
+                        Lines[x].Start.y=shift.t+45;
+                    }
+                    if(Lines[x].End.id=="3"){
+                        Lines[x].End.x=shift.l;
+                        Lines[x].End.y=shift.t+45;
+                    }
+                }
+            });
+        });
+        function line(Start,End){
+            this.Start = Start;
+            this.End  = End;
+        }
+        var bool = false;
+        var idInput;
+        var idOutput;
+        var StartX;
+        var StartY;
+        var EndX;
+        var EndY;
+        var Lines = new Array();
+        var Line;
+    </script>
+</head>
+
+<body id="main" style="height: 1000px;width: 1000px">
+<div
+        dojoType="dijit.Declaration"
+        widgetClass="dtdg.HelloWorld"
+        defaults="{
+        theme:'',
+        name:'',
+        h_id:'',
+        img_src:'',
+        input_id:'',
+        output_id:'',
+        }">
+    <div  class="body mouse_normal" >
+        <div class="mouse_link" style="position: absolute; left: 0px; top: 40px;
+            height: ${theme};width: ${theme};" dojoAttachEvent="onmouseup:InputOnMouseUp">
+            <canvas height="${theme}" width="${theme}" style="background-color:green;"></canvas>
+        </div>
+        <div class="mouse_link" style="position: absolute; right: 0px; top: 40px;
+            height: ${theme};width: ${theme};" dojoAttachEvent="onmouseup:OutputOnMouseUp">
+            <canvas height="${theme}" width="${theme}" style="background-color:red;"></canvas>
+        </div>
+
+        <div class="main_body">
+            <img src=${img_src} class="img">
+            <div class="name">
+                <span>${name}</span>
+            </div>
+        </div>
+    </div>
+
+    <script type="dojo/method" event="InputOnMouseUp" args="evt">
+          bool = false;
+          evt=evt||window.event;
+          EndX=evt.clientX;
+          EndY=evt.clientY;
+          idInput=this.h_id;
+          console.log("applied hello_class...");
+          Line = new line({x:StartX,y:StartY,id:idOutput},{x:EndX,y:EndY,id:idInput});
+          Lines.push(Line);
+          console.log(evt);
+    </script>
+    <script type="dojo/method" event="OutputOnMouseUp" args="evt">
+          bool = true;
+          evt=evt||window.event;
+          StartX=evt.clientX;
+          StartY=evt.clientY;
+          idOutput=this.h_id;
+          console.log("applied hello_class...");
+          console.log(evt);
+    </script>
+</div>
+<div id="move1" dojoType="dtdg.HelloWorld"
+     name="lwg" img_src="http://localhost/dojoStudy/resource/img/ball.png" h_id="1" theme="5">
+</div>
+<div id="move2" dojoType="dtdg.HelloWorld"
+     name="lwg" img_src="http://localhost/dojoStudy/resource/img/ball.png" h_id="2" theme="10">
+</div>
+<div id="move3" dojoType="dtdg.HelloWorld"
+     name="lwg" img_src="http://localhost/dojoStudy/resource/img/ball.png" h_id="3" theme="6">
+</div>
+<canvas id="line" height="1000px" width="1000px" style="z-index: -1"></canvas>
+<script type="text/javascript">
+
+    function clear(){
+        var canvas = document.getElementById("line");
+        var context = canvas.getContext('2d');
+        context.beginPath();
+        context.fillStyle = "#ffffff";
+        context.fillRect(0,0,1000,1000);
+        context.closePath();
+        context.fill();
+    }
+    document.getElementById("main").onmousemove=function(evt){
+        clear();
+        var canvas = document.getElementById("line");
+        var context = canvas.getContext('2d');
+        for(x in Lines){
+            var SX = Lines[x].Start.x;
+            var SY = Lines[x].Start.y;
+            var EX = Lines[x].End.x;
+            var EY = Lines[x].End.y;
+            context.beginPath();
+            context.strokeStyle = "#000000";
+            context.lineWidth = 2;
+            context.moveTo(SX, SY);
+            context.lineTo(EX, EY);
+            context.closePath();
+            context.stroke();
+            context.restore();
+        }
+        if(bool){
+            evt=evt||window.event;
+            var x=evt.clientX;
+            var y=evt.clientY;
+            var canvas = document.getElementById("line");
+            var context = canvas.getContext('2d');
+            context.beginPath();
+            context.strokeStyle = "#000000";
+            context.lineWidth = 2;
+            context.moveTo(StartX, StartY);
+            context.lineTo(x, y);
+            context.closePath();
+            context.stroke();
+            context.restore()
+        }
+    }
+</script>
+</body>
+</html>

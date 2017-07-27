@@ -1,0 +1,135 @@
+<!doctype html>
+<html><head>
+    <link rel="stylesheet" href="http://localhost/dojoStudy/js/dojo/dijit/themes/tundra/tundra.css"/>
+    <link href="http://localhost/dojoStudy/js/dojo/dojo/resources/dojo.css" rel="stylesheet"/>
+    <meta charset="utf-8">
+    <script
+            type="text/javascript"
+            src="http://localhost/dojoStudy/js/dojo/dojo/dojo.js"
+            djConfig="isDebug:true,parseOnLoad:true">
+    </script>
+    <script type="text/javascript">
+        dojo.require("dojo.parser")
+        dojo.require("dijit.Menu");
+        dojo.require("dijit.PopupMenuBarItem");
+        dojo.require("dijit.MenuBar");
+        dojo.require("dijit.CheckedMenuItem");
+        dojo.require("dijit.RadioMenuItem");
+        dojo.require("dijit.MenuSeparator");
+        dojo.addOnLoad(function(){
+            var editorProcessMenu = new dijit.Menu();
+            var freshenMenu = new dijit.MenuItem({
+                label:"刷新",
+                iconClass:"dijitEditorIcon dijitEditorIconDelete",
+                onClick:function(){
+                    console.log("刷新");
+                }
+            });
+
+            /*var layoutMenu = new dijit.Menu({id:"123"});
+            var HlayoutMenu = new dijit.RadioMenuItem({
+                label:"水平布局",
+                group:'layout',
+                onClick:function(){
+                    console.log("水平布局");
+                }
+            });
+            var VlayoutMenu = new dijit.RadioMenuItem({
+                label:"垂直布局",
+                group:'layout',
+                onClick:function(){
+                    console.log("垂直布局");
+                }
+            });
+            layoutMenu.addChild(HlayoutMenu);
+            layoutMenu.addChild(VlayoutMenu);
+            var layoutPopupMenu = new dijit.PopupMenuItem({label:"布局方式"});
+            //layoutPopupMenu.domNode.appendChild(layoutMenu.domNode);
+            dojo.place(layoutMenu.domNode,layoutPopupMenu.domNode,"last");*/
+            //layoutPopupMenu.containerNode=layoutMenu.domNode;
+            editorProcessMenu.addChild(freshenMenu);
+            var layoutPopupMenu = dijit.byId("layoutPopupMenu");
+            editorProcessMenu.addChild(layoutPopupMenu);
+            editorProcessMenu.bindDomNode(dojo.byId("stackw"));
+        });
+    </script>
+    <title>Menu</title>
+</head>
+
+<body class="tundra">
+<div id="stack" style="background: #eee;height: 300px;width: 300px;" ></div>
+<div id="stackw" style="background: #eee;height: 300px;width: 300px;" ></div>
+<div dojoType="dijit.PopupMenuItem" id="layoutPopupMenu">
+    <span>布局方式</span>
+    <div dojoType="dijit.Menu">
+        <div dojoType="dijit.RadioMenuItem" data-dojo-props="group:'layout'">
+            <span>垂直布局</span>
+            <script type="dojo/method" event="onClick" args="evt">
+                console.log("垂直布局");
+            </script>
+        </div>
+        <div dojoType="dijit.RadioMenuItem" data-dojo-props="group:'layout'">
+            <span>水平布局</span>
+            <script type="dojo/method" event="onClick" args="evt">
+                console.log("水平布局");
+            </script>
+        </div>
+    </div>
+</div>
+    <!--<div id="dialog" dojoType="dijit.Dialog">
+        So foul and fair a day I have not seen...
+    </div>-->
+<!--<div dojoType="dijit.Menu" targetNodeIds="stack" style="display: none">
+    <div dojoType="dijit.MenuItem" >foo
+        <script type="dojo/method" event="onClick" args="evt">
+            console.log("foo");
+        </script>
+    </div>
+    <div dojoType="dijit.MenuItem" >bar
+        <script type="dojo/method" event="onClick" args="evt">
+            console.log("bar");
+        </script>
+    </div>
+    &lt;!&ndash;<div dojoType="dijit.PopupMenuItem" >
+        &lt;!&ndash;<script type="dojo/method" event="onClick" args="evt">
+            console.log("baz");
+        </script>&ndash;&gt;
+        <span>baz</span>
+        <div dojoType="dijit.Menu">
+            <div dojoType="dijit.CheckedMenuItem" data-dojo-props="group:'zoom'">yabba
+            </div>
+            <div dojoType="dijit.CheckedMenuItem" data-dojo-props="group:'zoom'">dabba
+            </div>
+            <div dojoType="dijit.CheckedMenuItem" data-dojo-props="group:'zoom'">doo
+            </div>
+        </div>
+    </div>&ndash;&gt;
+</div>
+<div id="header" dojoType="dijit/MenuBar" >
+<div dojoType="dijit.PopupMenuBarItem" id="view">
+    <span>View</span>
+
+    <div dojoType="dijit.Menu" id="viewMenu">
+        <div dojoType="dijit.MenuItem">Normal</div>
+        <div dojoType="dijit.MenuItem">Outline</div>
+        &lt;!&ndash;<div dojoType="dijit.PopupMenuItem">
+            <span>Zoom</span>
+
+            <div dojoType="dijit.Menu" id="zoomMenu">
+                <div dojoType="dijit.RadioMenuItem"data-dojo-props="group:'zoom'">50%</div>
+                <div dojoType="dijit.RadioMenuItem" data-dojo-props="group:'zoom'">75%</div>
+                <div dojoType="dijit.RadioMenuItem" data-dojo-props="group:'zoom'">100%</div>
+                <div dojoType="dijit.RadioMenuItem" data-dojo-props="group:'zoom'">150%</div>
+                <div dojoType="dijit.RadioMenuItem" data-dojo-props="group:'zoom'">200%</div>
+            </div>
+        </div>&ndash;&gt;
+    </div>
+</div>
+<div dojoType="dijit.PopupMenuBarItem" id="themes">
+    <span>Themes</span>
+
+    <div dojoType="dijit.Menu" id="themeMenu"></div>
+</div>
+    </div>-->
+</body>
+</html>
